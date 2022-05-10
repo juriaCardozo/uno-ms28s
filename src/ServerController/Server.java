@@ -52,7 +52,7 @@ public class Server implements GameConstants {
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
 				null, options, options[0]);
 
-		if (n == 2)
+		if (n == 2 || n < 0)
 			System.exit(1);
 
 		return GAMEMODES[n];

@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import org.omg.CORBA.Bounds;
 import View.MainFrame;
 import View.UNOCard;
 
