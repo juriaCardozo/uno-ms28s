@@ -5,20 +5,13 @@ Code created by Josh Braza
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import GameModel.Dealer;
 import GameModel.Game;
-import GameModel.Player;
-import ServerController.MyCardListener;
 
-@SuppressWarnings({ "serial", "unused" })
+@SuppressWarnings("serial")
 public class Session extends JPanel {
 	private PlayerPanel player1;
 	private PlayerPanel player2;

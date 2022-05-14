@@ -13,30 +13,15 @@ import View.UNOCard;
  * This Class contains standard 108-Card stack
  */
 public class CardDeck implements GameConstants {
-	
-	@SuppressWarnings("unused")
-	private final LinkedList<NumberCard> numberCards;
-	@SuppressWarnings("unused")
-	private final LinkedList<ActionCard> actionCards;
-	@SuppressWarnings("unused")
-	private final LinkedList<WildCard> wildCards;
-	
 	private LinkedList<UNOCard> UNOcards;
 	
 	public CardDeck(){
-		
-		//Initialize Cards
-		numberCards = new LinkedList<NumberCard>();
-		actionCards = new LinkedList<ActionCard>();
-		wildCards = new LinkedList<WildCard>();
-		
 		UNOcards = new LinkedList<UNOCard>();
 		
 		addCards();
 		addCardListener(CARDLISTENER);
 	}
-	
-	
+		
 	//Create 108 cards for this CardDeck
 	private void addCards() {
 		for(Color color:UNO_COLORS){
@@ -73,5 +58,5 @@ public class CardDeck implements GameConstants {
 	
 	public LinkedList<UNOCard> getCards(){
 		return UNOcards;
-	}
+	}	
 }

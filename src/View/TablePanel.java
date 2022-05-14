@@ -2,27 +2,19 @@ package View;
 /*
 Code created by Josh Braza 
 */
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 
-import javax.swing.Box;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import CardModel.WildCard;
 import Interfaces.GameConstants;
-import Interfaces.UNOConstants;
 
-@SuppressWarnings({ "unused", "serial" })
+@SuppressWarnings("serial")
 public class TablePanel extends JPanel implements GameConstants {
 	
 	private UNOCard topCard;	

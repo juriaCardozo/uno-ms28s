@@ -2,32 +2,24 @@ package View;
 /*
 Code created by Josh Braza 
 */
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import GameModel.Player;
 import Interfaces.GameConstants;
-import ServerController.MyButtonListener;
 
-@SuppressWarnings({ "unused", "serial" })
+@SuppressWarnings("serial")
 public class PlayerPanel extends JPanel implements GameConstants {
 
 	private Player player;

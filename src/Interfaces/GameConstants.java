@@ -4,14 +4,11 @@ Code created by Josh Braza
 */
 import java.awt.Color;
 
-import javax.swing.JTextArea;
-
 import ServerController.MyButtonListener;
 import ServerController.MyCardListener;
 import View.InfoPanel;
 
 
-@SuppressWarnings("unused")
 public interface GameConstants extends UNOConstants {
 	
 	int TOTAL_CARDS = 108;

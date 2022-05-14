@@ -8,9 +8,6 @@ import View.UNOCard;
 
 @SuppressWarnings("serial")
 public class WildCard extends UNOCard {
-	
-	@SuppressWarnings("unused")
-	private int Function = 0;
 	private Color chosenColor;
 	
 	public WildCard() {
@@ -27,5 +24,4 @@ public class WildCard extends UNOCard {
 	public Color getWildColor(){
 		return chosenColor;
 	}
-
 }

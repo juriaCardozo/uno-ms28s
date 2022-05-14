@@ -2,9 +2,7 @@ package GameModel;
 /*
 Code created by Josh Braza 
 */
-import java.awt.Color;
-import java.util.LinkedList;
-import java.util.Random;
+
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
@@ -13,7 +11,6 @@ import CardModel.*;
 import Interfaces.GameConstants;
 import View.UNOCard;
 
-@SuppressWarnings("unused")
 public class Game implements GameConstants {
 
 	private Player[] players;

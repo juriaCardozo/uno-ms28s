@@ -2,17 +2,16 @@ package GameModel;
 /*
 Code created by Josh Braza 
 */
-import java.awt.event.MouseEvent;
+
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Stack;
 
 import CardModel.CardDeck;
 import Interfaces.GameConstants;
-import View.PlayerPanel;
 import View.UNOCard;
 
-@SuppressWarnings("unused")
+
 public class Dealer implements GameConstants {
 	
 	private CardDeck cardDeck;

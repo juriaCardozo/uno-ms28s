@@ -1,17 +1,12 @@
 /*
 Code created by Josh Braza 
 */
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
 import View.MainFrame;
 
-@SuppressWarnings("unused")
 public class Main {
-	
 	public static void main(String[] args) {
 		
 		//Create Frame and invoke it.

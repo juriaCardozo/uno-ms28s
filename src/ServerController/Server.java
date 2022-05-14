@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import CardModel.WildCard;
@@ -17,7 +16,6 @@ import Interfaces.GameConstants;
 import View.Session;
 import View.UNOCard;
 
-@SuppressWarnings("unused")
 public class Server implements GameConstants {
 	private Game game;
 	private Session session;

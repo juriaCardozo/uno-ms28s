@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 /*
 Code created by Josh Braza 
 */
+
 @SuppressWarnings("serial")
 public class InfoPanel extends JPanel {
-	
 	private String error;
 	private String text;
 	private int panelCenter;
