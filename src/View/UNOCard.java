@@ -25,6 +25,7 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 	private Color cardColor = null;
 	private String value = null;
 	private int type = 0;
+	private boolean showValue = false;
 	
 	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
 	private Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
@@ -32,10 +33,16 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 	public UNOCard(){
 	}
 	
+	public void setShowValue(boolean showValue) {
+		this.showValue = showValue;
+		this.repaint();
+	}
+	
 	public UNOCard(Color cardColor, int cardType, String cardValue){
 		this.cardColor = cardColor;
 		this.type = cardType;
 		this.value = cardValue;
+		this.showValue = true;
 		
 		this.setPreferredSize(CARDSIZE);
 		this.setBorder(defaultBorder);
@@ -47,22 +54,33 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		
+		if(showValue) {
+			paintCardFront(g2);
+		} else {
+			paintCardBack(g2);
+		}	
+	}	
+	
+	private void paintCardFront(Graphics2D g) {
 		int cardWidth = CARDSIZE.width;
 		int cardHeight = CARDSIZE.height;
 		
-		g2.setColor(Color.WHITE);
-		g2.fillRect(0, 0, cardWidth, cardHeight);
+		//Paints the external border of the card
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, cardWidth, cardHeight);
 		
+		//Paints the color of the card
 		int margin = 5;
-		g2.setColor(cardColor);
-		g2.fillRect(margin, margin, cardWidth-2*margin, cardHeight-2*margin);
+		g.setColor(cardColor);
+		g.fillRect(margin, margin, cardWidth-2*margin, cardHeight-2*margin);
 		
-		g2.setColor(Color.white);
-		AffineTransform org = g2.getTransform();
-		g2.rotate(45,cardWidth*3/4,cardHeight*3/4);		
+		//Paints the oval format in the center of the card
+		g.setColor(Color.white);
+		AffineTransform org = g.getTransform();
+		g.rotate(45,cardWidth*3/4,cardHeight*3/4);		
 
-		g2.fillOval(0,cardHeight*1/4,cardWidth*3/5, cardHeight);
-		g2.setTransform(org);		
+		g.fillOval(0,cardHeight*1/4,cardWidth*3/5, cardHeight);
+		g.setTransform(org);		
 		
 		//Value in the center		
 		Font defaultFont = new Font("Helvetica", Font.BOLD, cardWidth/2+5);		
@@ -70,9 +88,9 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		int StringWidth = fm.stringWidth(value)/2;
 		int FontHeight = defaultFont.getSize()*1/3;
 		
-		g2.setColor(cardColor);
-		g2.setFont(defaultFont);
-		g2.drawString(value, cardWidth/2-StringWidth, cardHeight/2+FontHeight);
+		g.setColor(cardColor);
+		g.setFont(defaultFont);
+		g.drawString(value, cardWidth/2-StringWidth, cardHeight/2+FontHeight);
 		
 		//Value in the corner
 		defaultFont = new Font("Helvetica", Font.ITALIC, cardWidth/5);		
@@ -80,11 +98,43 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		StringWidth = fm.stringWidth(value)/2;
 		FontHeight = defaultFont.getSize()*1/3;
 		
-		g2.setColor(Color.white);
-		g2.setFont(defaultFont);
-		g2.drawString(value, 2*margin,5*margin);		
-	}	
+		g.setColor(Color.white);
+		g.setFont(defaultFont);
+		g.drawString(value, 2*margin,5*margin);	
+	}
 	
+	private void paintCardBack(Graphics2D g) {
+		
+		int cardWidth = CARDSIZE.width;
+		int cardHeight = CARDSIZE.height;
+		
+		//Paints the external border of the card
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, cardWidth, cardHeight);
+		
+		//Paints the color of the card
+		int margin = 5;
+		g.setColor(Color.BLACK);
+		g.fillRect(margin, margin, cardWidth-2*margin, cardHeight-2*margin);
+		
+		//Paints the oval format in the center of the card
+		g.setColor(Color.RED);
+		AffineTransform org = g.getTransform();
+		g.rotate(45,cardWidth*3/4,cardHeight*3/4);		
+
+		g.fillOval(0,cardHeight*1/4,cardWidth*3/5, cardHeight);
+		g.setTransform(org);		
+		
+		//Value in the center		
+		Font defaultFont = new Font("Helvetica", Font.BOLD, cardWidth/3);		
+		FontMetrics fm = this.getFontMetrics(defaultFont);
+		int StringWidth = fm.stringWidth("UNO")/2;
+		int FontHeight = defaultFont.getSize()*1/3;
+		
+		g.setColor(Color.YELLOW);
+		g.setFont(defaultFont);
+		g.drawString("UNO", cardWidth/2-StringWidth, cardHeight/2+FontHeight);
+	}
 	/**
 	 * My Mouse Listener 
 	 */

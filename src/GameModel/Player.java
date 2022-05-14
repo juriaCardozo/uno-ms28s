@@ -32,6 +32,7 @@ public class Player {
 		return this.name;
 	}
 	public void obtainCard(UNOCard card){
+		card.setShowValue(isMyTurn);
 		myCards.add(card);
 	}
 	
@@ -57,7 +58,10 @@ public class Player {
 	}
 	
 	public void toggleTurn(){
-		isMyTurn = (isMyTurn) ? false : true;
+		isMyTurn = !isMyTurn;
+		for(UNOCard uno : myCards) {
+			uno.setShowValue(isMyTurn);
+		}
 	}
 	
 	public boolean isMyTurn(){
