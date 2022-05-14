@@ -164,9 +164,10 @@ public class Server implements GameConstants {
 	private void performAction(UNOCard actionCard) {
 
 		// Draw2PLUS
-		if (actionCard.getValue().equals(DRAW2PLUS))
+		if (actionCard.getValue().equals(DRAW2PLUS)) {
 			game.drawPlus(2);
-		else if (actionCard.getValue().equals(REVERSE))
+			game.switchTurn();
+		} else if (actionCard.getValue().equals(REVERSE))
 			game.switchTurn();
 		else if (actionCard.getValue().equals(SKIP))
 			game.switchTurn();
@@ -197,8 +198,10 @@ public class Server implements GameConstants {
 			
 		}
 		
-		if (functionCard.getValue().equals(W_DRAW4PLUS))
+		if (functionCard.getValue().equals(W_DRAW4PLUS)) {
 			game.drawPlus(4);
+			game.switchTurn();
+		}			
 		
 		return true;
 	}
