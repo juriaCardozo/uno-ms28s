@@ -53,12 +53,9 @@ public class PlayerPanel extends JPanel implements GameConstants {
 
 		// Register Listeners
 		handler = new MyButtonHandler();
-		
-		draw.setVisible(false);
 		draw.addActionListener(BUTTONLISTENER);
 		draw.addActionListener(handler);
 		
-		sayUNO.setVisible(false);
 		sayUNO.addActionListener(BUTTONLISTENER);
 		sayUNO.addActionListener(handler);
 	}
