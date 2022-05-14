@@ -58,6 +58,7 @@ public class PlayerPanel extends JPanel implements GameConstants {
 		
 		sayUNO.addActionListener(BUTTONLISTENER);
 		sayUNO.addActionListener(handler);
+		enableButtons();
 	}
 
 	@SuppressWarnings("static-access")
@@ -135,6 +136,11 @@ public class PlayerPanel extends JPanel implements GameConstants {
 			p.x = (width - calculateOffset(width, totalCards) * totalCards) / 2;
 			return p;
 		}
+	}
+	
+	public void enableButtons() {
+		draw.setEnabled(player.isMyTurn());
+		sayUNO.setEnabled(player.isMyTurn());
 	}
 	
 	class MyButtonHandler implements ActionListener{

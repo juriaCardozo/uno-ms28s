@@ -47,6 +47,9 @@ public class Session extends JPanel {
 		
 		table.revalidate();		
 		revalidate();
+		
+		player1.enableButtons();
+		player2.enableButtons();
 	}
 	
 	public void updatePanel(UNOCard playedCard){
