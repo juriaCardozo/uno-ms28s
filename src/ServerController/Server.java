@@ -86,35 +86,35 @@ public class Server implements GameConstants {
 
 			// Card validation
 			if (isValidMove(clickedCard)) {
-
-				clickedCard.removeMouseListener(CARDLISTENER);
-				playedCards.add(clickedCard);
-				game.removePlayedCard(clickedCard);
-
+				boolean cardConfirmed = true;
 				// function cards ??
 				switch (clickedCard.getType()) {
 				case ACTION:
 					performAction(clickedCard);
 					break;
 				case WILD:
-					performWild((WildCard) clickedCard);
+					cardConfirmed = performWild((WildCard) clickedCard);
 					break;
 				default:
 					break;
 				}
-
-				game.switchTurn();
-				session.updatePanel(clickedCard);
-				checkResults();
+				
+				if (cardConfirmed) {
+					clickedCard.removeMouseListener(CARDLISTENER);
+					playedCards.add(clickedCard);
+					game.removePlayedCard(clickedCard);
+				
+					game.switchTurn();
+					session.updatePanel(clickedCard);
+					checkResults();
+				}
 			} else {
 				infoPanel.setError("invalid move");
 				infoPanel.repaint();
 			}
 			
 		}
-		
-		
-		
+				
 		if(mode==vsPC && canPlay){
 			if(game.isPCsTurn()){
 				game.playPC(peekTopCard());
@@ -172,14 +172,12 @@ public class Server implements GameConstants {
 			game.switchTurn();
 	}
 
-	private void performWild(WildCard functionCard) {		
+	private boolean performWild(WildCard functionCard) {		
 
-		//System.out.println(game.whoseTurn());
 		if(mode==1 && game.isPCsTurn()){			
 			int random = new Random().nextInt() % 4;
 			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
-		}
-		else{
+		} else {
 			
 			ArrayList<String> colors = new ArrayList<String>();
 			colors.add("RED");
@@ -190,12 +188,19 @@ public class Server implements GameConstants {
 			String chosenColor = (String) JOptionPane.showInputDialog(null,
 					"Choose a color", "Wild Card Color",
 					JOptionPane.DEFAULT_OPTION, null, colors.toArray(), null);
-	
+			
+			if (chosenColor == null) {
+				return false;
+			}
+			
 			functionCard.useWildColor(UNO_COLORS[colors.indexOf(chosenColor)]);
+			
 		}
 		
 		if (functionCard.getValue().equals(W_DRAW4PLUS))
 			game.drawPlus(4);
+		
+		return true;
 	}
 	
 	public void requestCard() {
