@@ -105,6 +105,7 @@ public class Server implements GameConstants {
 					game.removePlayedCard(clickedCard);
 				
 					game.switchTurn();
+					clickedCard.setShowValue(true);
 					session.updatePanel(clickedCard);
 					checkResults();
 				}
