@@ -162,15 +162,11 @@ public class Server implements GameConstants {
 
 	// ActionCards
 	private void performAction(UNOCard actionCard) {
-
 		// Draw2PLUS
-		if (actionCard.getValue().equals(DRAW2PLUS)) {
+		if (actionCard.getValue().equals(DRAW2PLUS))
 			game.drawPlus(2);
-			game.switchTurn();
-		} else if (actionCard.getValue().equals(REVERSE))
-			game.switchTurn();
-		else if (actionCard.getValue().equals(SKIP))
-			game.switchTurn();
+			
+		game.switchTurn();
 	}
 
 	private boolean performWild(WildCard functionCard) {		
