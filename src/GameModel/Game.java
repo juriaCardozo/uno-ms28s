@@ -21,7 +21,6 @@ public class Game implements GameConstants {
 	private Dealer dealer;
 	private Stack<UNOCard> cardStack;
 	
-	
 	public Game(int mode){
 		
 		GAMEMODE = mode;
@@ -82,10 +81,14 @@ public class Game implements GameConstants {
 				UNOCard newCard = getCard();
 				p.obtainCard(newCard);
 				canPlay = canPlay(topCard, newCard);
-				break;
+				
+				if(pc.isMyTurn() && canPlay){
+					playPC(topCard);
+					canPlay = true;
+				}
 			}
 		}
-
+		
 		if (!canPlay)
 			switchTurn();
 	}

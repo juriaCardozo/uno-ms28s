@@ -26,6 +26,10 @@ public class Server implements GameConstants {
 	public Server() {
 
 		mode = requestMode();
+		startGame();
+	}
+	
+	public void startGame() {
 		game = new Game(mode);
 		playedCards = new Stack<UNOCard>();
 
@@ -98,16 +102,8 @@ public class Server implements GameConstants {
 				default:
 					break;
 				}
-				
-				if (cardConfirmed) {
-					clickedCard.removeMouseListener(CARDLISTENER);
-					playedCards.add(clickedCard);
-					game.removePlayedCard(clickedCard);
-				
-					game.switchTurn();
-					clickedCard.setShowValue(true);
-					session.updatePanel(clickedCard);
-					checkResults();
+				if(cardConfirmed) {
+					playClickedCard(clickedCard);
 				}
 			} else {
 				infoPanel.setError("invalid move");
@@ -122,6 +118,17 @@ public class Server implements GameConstants {
 			}
 		}
 	}
+	
+	private void playClickedCard(UNOCard clickedCard) {
+		clickedCard.removeMouseListener(CARDLISTENER);
+		playedCards.add(clickedCard);
+		game.removePlayedCard(clickedCard);
+	
+		game.switchTurn();
+		clickedCard.setShowValue(true);
+		session.updatePanel(clickedCard);
+		checkResults();
+	}
 
 	//Check if the game is over
 	private void checkResults() {
@@ -129,6 +136,7 @@ public class Server implements GameConstants {
 		if (game.isOver()) {
 			canPlay = false;
 			infoPanel.updateText("GAME OVER");
+			gameOverNewSession();
 		}
 	}
 	
@@ -220,5 +228,20 @@ public class Server implements GameConstants {
 
 	public void submitSaidUNO() {
 		game.setSaidUNO();
+	}
+	
+	public void gameOverNewSession() {
+
+		Object[] options = { "New round", "Cancel" };
+
+		int n = JOptionPane.showOptionDialog(null,
+				"Choose how to proceed", "select",
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+				null, options, options[0]);
+
+		if (n == 0)
+			startGame();
+		else 
+			System.exit(1);
 	}
 }

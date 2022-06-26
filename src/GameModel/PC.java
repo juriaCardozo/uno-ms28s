@@ -32,24 +32,7 @@ public class PC extends Player implements GameConstants {
 			color = ((WildCard) topCard).getWildColor();			
 		}
 
-		for (UNOCard card : getAllCards()) {
-
-			if (card.getColor().equals(color) || card.getValue().equals(value)) {
-				
-				MouseEvent doPress = new MouseEvent(card, MouseEvent.MOUSE_PRESSED,
-						System.currentTimeMillis(),
-						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);				
-				card.dispatchEvent(doPress);
-				
-				MouseEvent doRelease = new MouseEvent(card, MouseEvent.MOUSE_RELEASED,
-						System.currentTimeMillis(),
-						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
-				card.dispatchEvent(doRelease);
-				
-				done = true;
-				break;
-			}
-		}
+		done = playCard(color, value);
 
 		// if no card was found, play wild card
 		if (!done) {
@@ -76,5 +59,27 @@ public class PC extends Player implements GameConstants {
 			saysUNO();
 		
 		return done;
+	}
+	
+	private boolean playCard(Color color, String value) {
+		for (UNOCard card : getAllCards()) {
+
+			if (card.getColor().equals(color) || card.getValue().equals(value)) {
+				
+				MouseEvent doPress = new MouseEvent(card, MouseEvent.MOUSE_PRESSED,
+						System.currentTimeMillis(),
+						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);				
+				card.dispatchEvent(doPress);
+				
+				MouseEvent doRelease = new MouseEvent(card, MouseEvent.MOUSE_RELEASED,
+						System.currentTimeMillis(),
+						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
+				card.dispatchEvent(doRelease);
+				
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }
