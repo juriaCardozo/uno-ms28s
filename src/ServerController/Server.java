@@ -39,6 +39,11 @@ public class Server implements GameConstants {
 
 		// First Card
 		UNOCard firstCard = game.getCard();
+		while(firstCard.getValue().equals(W_COLORPICKER) ||
+			  firstCard.getValue().equals(W_DRAW4PLUS)) {
+			firstCard = game.getCard();
+		}
+		
 		modifyFirstCard(firstCard);
 
 		playedCards.add(firstCard);
