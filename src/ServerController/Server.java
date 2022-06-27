@@ -3,6 +3,7 @@ package ServerController;
 Code created by Josh Braza 
 */
 import java.awt.Color;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
@@ -16,12 +17,15 @@ import Interfaces.GameConstants;
 import View.Session;
 import View.UNOCard;
 
+import ServerController.Observer;
+
 public class Server implements GameConstants {
 	private Game game;
 	private Session session;
 	private Stack<UNOCard> playedCards;
 	public boolean canPlay;
 	private int mode;
+	private Observer observer;
 
 	public Server() {
 
@@ -230,6 +234,14 @@ public class Server implements GameConstants {
 		game.setSaidUNO();
 	}
 	
+	public void setObserver(Observer newObserver) {
+		observer = newObserver;
+	}
+	
+	public Observer observer() {
+		return observer;
+	}
+	
 	public void gameOverNewSession() {
 
 		Object[] options = { "New round", "Cancel" };
@@ -239,9 +251,10 @@ public class Server implements GameConstants {
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
 				null, options, options[0]);
 
-		if (n == 0)
-			startGame();
-		else 
+		if (n == 0) {
+			observer.runFunc();
+		} else { 
 			System.exit(1);
+		}
 	}
 }
