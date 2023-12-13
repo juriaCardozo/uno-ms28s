@@ -13,8 +13,6 @@ public interface GameConstants extends UNOConstants_Original {
 	int TOTAL_CARDS = 108;
 	int FIRSTHAND = 8;
 
-	//	Color[] UNO_COLORS = {RED, BLUE, GREEN, YELLOW};
-
 	UNOConstants unoConstants = new UNOConstants();
 	ColorSelectionWindow colorSelection = new ColorSelectionWindow();
 	String selectedPalette = colorSelection.getSelectedPalette();
@@ -25,9 +23,7 @@ public interface GameConstants extends UNOConstants_Original {
 	Color WILD_CARDCOLOR = BLACK;
 
 	int[] UNO_NUMBERS =  {0,1,2,3,4,5,6,7,8,9};
-
-	//	String[] ActionTypes = {REVERSE,SKIP,DRAW2PLUS};
-//	String[] WildTypes = {W_COLORPICKER, W_DRAW4PLUS};
+	
 	String[] ActionTypes = {REVERSE, SKIP, DRAW2PLUS};
 	String[] WildTypes = {W_COLORPICKER, W_DRAW4PLUS};
 
