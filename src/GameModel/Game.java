@@ -185,14 +185,18 @@ public class Game implements GameConstants {
 				playCardSound();
 
 				if (p.getTotalCards() == 1 && !p.getSaidUNO()) {
-					infoPanel.setError(p.getName() + " Forgot to say UNO");
-					p.obtainCard(getCard());
-					p.obtainCard(getCard());
+					sayUNO(p);
 				}else if(p.getTotalCards()>2){
 					p.setSaidUNOFalse();
 				}
 			}
 		}
+	}
+
+	private void sayUNO(Player p) {
+		infoPanel.setError(p.getName() + " Forgot to say UNO");
+		p.obtainCard(getCard());
+		p.obtainCard(getCard());
 	}
 
 	//give player a card
@@ -307,9 +311,7 @@ public class Game implements GameConstants {
 		for (Player p : players) {
 			if (p.isMyTurn()) {
 				if (p.getTotalCards() == 1 && !p.getSaidUNO()) {
-					infoPanel.setError(p.getName() + " Forgot to say UNO");
-					p.obtainCard(getCard());
-					p.obtainCard(getCard());
+					sayUNO(p);
 				}
 			}
 		}
