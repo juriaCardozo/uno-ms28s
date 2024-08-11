@@ -13,8 +13,8 @@ public class WildCard extends UNOCard {
 	public WildCard() {
 	}
 	
-	public WildCard(String cardValue){
-		super(BLACK, WILD, cardValue);		
+	public WildCard(String cardValue, boolean minimalistStyle){
+		super(BLACK, WILD, cardValue, minimalistStyle);
 	}
 	
 	public void useWildColor(Color wildColor){

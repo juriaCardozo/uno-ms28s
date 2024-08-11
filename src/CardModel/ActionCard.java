@@ -9,7 +9,7 @@ public class ActionCard extends UNOCard{
 	
 	private static final long serialVersionUID = 1L;
 	
-	public ActionCard(Color cardColor, String cardValue){
-		super(cardColor,ACTION, cardValue);		
+	public ActionCard(Color cardColor, String cardValue, boolean minimalistStyle){
+		super(cardColor,ACTION, cardValue, minimalistStyle);
 	}	
 }

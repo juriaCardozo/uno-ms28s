@@ -30,7 +30,7 @@ public class CardDeck implements GameConstants {
 			for(int num : UNO_NUMBERS){
 				int i=0;
 				do{
-					UNOcards.add(new NumberCard(color, Integer.toString(num)));
+					UNOcards.add(new NumberCard(color, Integer.toString(num), GameConstants.selectedStyle));
 					i++;
 				}while(num!=0 && i<2);
 			}
@@ -38,13 +38,13 @@ public class CardDeck implements GameConstants {
 			//Create 24 ActionCards --> everything twice
 			for(String type : ActionTypes){
 				for(int i=0;i<2;i++)
-					UNOcards.add(new ActionCard(color, type));
+					UNOcards.add(new ActionCard(color, type, GameConstants.selectedStyle));
 			}					
 		}		
 		
 		for(String type : WildTypes){
 			for(int i=0;i<4;i++){
-				UNOcards.add(new WildCard(type));
+				UNOcards.add(new WildCard(type, GameConstants.selectedStyle));
 			}
 		}
 		

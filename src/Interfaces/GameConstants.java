@@ -14,6 +14,10 @@ public interface GameConstants extends UNOConstants_Original {
 	int FIRSTHAND = 8;
 
 	UNOConstants unoConstants = new UNOConstants();
+
+	StyleSelectionWindow styleSelection = new StyleSelectionWindow();
+	boolean selectedStyle = styleSelection.getSelectedStyle();
+
 	ColorSelectionWindow colorSelection = new ColorSelectionWindow();
 	String selectedPalette = colorSelection.getSelectedPalette();
 

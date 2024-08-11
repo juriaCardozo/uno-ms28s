@@ -12,8 +12,8 @@ public class NumberCard extends UNOCard {
 	public NumberCard(){
 	}
 	
-	public NumberCard(Color cardColor, String cardValue){
-		super(cardColor, NUMBERS, cardValue);		
+	public NumberCard(Color cardColor, String cardValue, boolean minimalistStyle){
+		super(cardColor, NUMBERS, cardValue, minimalistStyle);
 	}
 
 }
