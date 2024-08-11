@@ -1,14 +1,13 @@
 package GameModel;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
-
-import java.awt.Color;
-import java.awt.event.MouseEvent;
 
 import CardModel.WildCard;
 import Interfaces.GameConstants;
 import View.UNOCard;
+import java.awt.Color;
+import java.awt.event.MouseEvent;
 
 public class PC extends Player implements GameConstants {
 
@@ -29,7 +28,7 @@ public class PC extends Player implements GameConstants {
 		String value = topCard.getValue();
 		
 		if(topCard.getType()==WILD){
-			color = ((WildCard) topCard).getWildColor();			
+			color = ((WildCard) topCard).getWildColor();
 		}
 
 		done = playCard(color, value);
@@ -68,7 +67,7 @@ public class PC extends Player implements GameConstants {
 				
 				MouseEvent doPress = new MouseEvent(card, MouseEvent.MOUSE_PRESSED,
 						System.currentTimeMillis(),
-						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);				
+						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
 				card.dispatchEvent(doPress);
 				
 				MouseEvent doRelease = new MouseEvent(card, MouseEvent.MOUSE_RELEASED,

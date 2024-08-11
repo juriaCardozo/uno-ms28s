@@ -1,14 +1,14 @@
 package Interfaces;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JOptionPane;
 
 public class ColorSelectionWindow {
     public String selectedPalette;
 
     public ColorSelectionWindow() {
-        Object[] options = {"Padrão", "Acromatopsia", "Tritanomalia", "Deuteromalia", "Protanomalia"};
-        int choice = JOptionPane.showOptionDialog(null, "Escolha uma paleta de cores:", "Seleção de Cores", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        Object[] options = { "Padrão", "Acromatopsia", "Tritanomalia", "Deuteromalia", "Protanomalia" };
+        int choice = JOptionPane.showOptionDialog(null, "Escolha uma paleta de cores:", "Seleção de Cores",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         // Defina a paleta com base na escolha do jogador
         UNOConstants unoConstants = new UNOConstants();
         // Defina a paleta com base na escolha do jogador

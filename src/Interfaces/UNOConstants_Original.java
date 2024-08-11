@@ -21,6 +21,6 @@ public interface UNOConstants_Original {
 	String DRAW2PLUS = "2+";
 	
 	//Wild card functions
-	String W_COLORPICKER = "W";
-	String W_DRAW4PLUS = "4+";	
+	String W_COLORPICKER = "K";
+	String W_DRAW4PLUS = "4+";
 }

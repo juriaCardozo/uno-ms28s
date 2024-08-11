@@ -1,14 +1,4 @@
 package ServerController;
-/*
-Code created by Josh Braza
-*/
-import java.awt.Color;
-
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Stack;
-
-import javax.swing.JOptionPane;
 
 import CardModel.WildCard;
 import GameModel.Game;
@@ -16,8 +6,11 @@ import GameModel.Player;
 import Interfaces.GameConstants;
 import View.Session;
 import View.UNOCard;
-
-import ServerController.Observer;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Stack;
+import javax.swing.JOptionPane;
 
 public class Server implements GameConstants {
 	private Game game;
@@ -39,7 +32,7 @@ public class Server implements GameConstants {
 
 		// First Card
 		UNOCard firstCard = game.getCard();
-		while(firstCard.getValue().equals(W_COLORPICKER) ||
+		while (firstCard.getValue().equals(W_COLORPICKER) ||
 				firstCard.getValue().equals(W_DRAW4PLUS)) {
 			firstCard = game.getCard();
 		}
@@ -53,7 +46,7 @@ public class Server implements GameConstants {
 		canPlay = true;
 	}
 
-	//return if it's 2-Player's mode or PC-mode
+	// return if it's 2-Player's mode or PC-mode
 	private int requestMode() {
 
 		Object[] options = { "vs PC", "Manual", "Cancel" };
@@ -69,7 +62,7 @@ public class Server implements GameConstants {
 		return GAMEMODES[n];
 	}
 
-	//coustom settings for the first card
+	// coustom settings for the first card
 	private void modifyFirstCard(UNOCard firstCard) {
 		firstCard.removeMouseListener(CARDLISTENER);
 		if (firstCard.getType() == WILD) {
@@ -82,13 +75,12 @@ public class Server implements GameConstants {
 		}
 	}
 
-	//return Main Panel
+	// return Main Panel
 	public Session getSession() {
 		return this.session;
 	}
 
-
-	//request to play a card
+	// request to play a card
 	public void playThisCard(UNOCard clickedCard) {
 
 		// Check player's turn
@@ -111,7 +103,7 @@ public class Server implements GameConstants {
 					default:
 						break;
 				}
-				if(cardConfirmed) {
+				if (cardConfirmed) {
 					playClickedCard(clickedCard);
 				}
 			} else {
@@ -121,8 +113,8 @@ public class Server implements GameConstants {
 
 		}
 
-		if(mode==vsPC && canPlay){
-			if(game.isPCsTurn()){
+		if (mode == vsPC && canPlay) {
+			if (game.isPCsTurn()) {
 				game.playPC(peekTopCard());
 			}
 		}
@@ -139,7 +131,7 @@ public class Server implements GameConstants {
 		checkResults();
 	}
 
-	//Check if the game is over
+	// Check if the game is over
 	private void checkResults() {
 
 		if (game.isOver()) {
@@ -149,7 +141,7 @@ public class Server implements GameConstants {
 		}
 	}
 
-	//check player's turn
+	// check player's turn
 	public boolean isHisTurn(UNOCard clickedCard) {
 
 		for (Player p : game.getPlayers()) {
@@ -159,7 +151,7 @@ public class Server implements GameConstants {
 		return false;
 	}
 
-	//check if it is a valid card
+	// check if it is a valid card
 	public boolean isValidMove(UNOCard playedCard) {
 		UNOCard topCard = peekTopCard();
 
@@ -189,7 +181,7 @@ public class Server implements GameConstants {
 
 	private boolean performWild(WildCard functionCard) {
 
-		if(mode==1 && game.isPCsTurn()){
+		if (mode == 1 && game.isPCsTurn()) {
 			int random = new Random().nextInt() % 4;
 			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
 		} else {
@@ -223,8 +215,8 @@ public class Server implements GameConstants {
 	public void requestCard() {
 		game.drawCard(peekTopCard());
 
-		if(mode==vsPC && canPlay){
-			if(game.isPCsTurn())
+		if (mode == vsPC && canPlay) {
+			if (game.isPCsTurn())
 				game.playPC(peekTopCard());
 		}
 

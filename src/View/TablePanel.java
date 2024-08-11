@@ -17,7 +17,7 @@ import Interfaces.GameConstants;
 @SuppressWarnings("serial")
 public class TablePanel extends JPanel implements GameConstants {
 	
-	private UNOCard topCard;	
+	private UNOCard topCard;
 	private JPanel table;
 	
 	public TablePanel(UNOCard firstCard){

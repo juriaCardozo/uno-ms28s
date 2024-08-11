@@ -3,27 +3,28 @@ package View;
 Code created by Josh Braza 
 */
 
+import GameModel.PC;
+import GameModel.Player;
+import Interfaces.GameConstants;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import GameModel.Player;
-import Interfaces.GameConstants;
 
 @SuppressWarnings("serial")
 public class PlayerPanel extends JPanel implements GameConstants {
 
 	private Player player;
 	private String name;
+	private PC pc = new PC();
 
 	private Box myLayout;
 	private JLayeredPane cardHolder;
@@ -87,6 +88,15 @@ public class PlayerPanel extends JPanel implements GameConstants {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+		String playerName;
+
+
+		while(player.getName() == null || player.getName().trim().isEmpty()){
+			JOptionPane.showMessageDialog(null,"Nome nao pode ser nulo! Por favor insira um nome valido.", "Nome invalido!", JOptionPane.ERROR_MESSAGE);
+
+			playerName = JOptionPane.showInputDialog("Player 2");
+			player.setName(playerName);
+		}
 		setPlayerName(player.getName());
 	}
 

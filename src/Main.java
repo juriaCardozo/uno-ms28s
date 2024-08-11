@@ -2,24 +2,22 @@
 Code created by Josh Braza 
 */
 
-import javax.swing.JFrame;
-
-import javax.swing.SwingUtilities;
-import View.MainFrame;
-
 import ServerController.Observer;
+import View.MainFrame;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class Main {
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {					
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				startNewGame();			
-			}	
-		});	
+				startNewGame();
+			}
+		});
 	}
-	
+
 	static public void startNewGame() {
-		Observer observer = new Observer();		
+		Observer observer = new Observer();
 		MainFrame frame = new MainFrame(observer);
 
 		observer.setFunc(new Runnable() {
@@ -28,7 +26,7 @@ public class Main {
 				startNewGame();
 			}
 		});
-		
+
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setLocation(200, 100);
