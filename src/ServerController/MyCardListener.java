@@ -2,11 +2,10 @@ package ServerController;
 /*
 Code created by Josh Braza 
 */
+import View.UNOCard;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import View.UNOCard;
 
 public class MyCardListener extends MouseAdapter {
 	
@@ -17,12 +16,13 @@ public class MyCardListener extends MouseAdapter {
 		myServer = server;
 	}
 	
-	public void mousePressed(MouseEvent e) {		
+        @Override
+	public void mousePressed(MouseEvent e) {
 		sourceCard = (UNOCard) e.getSource();
 		
 		try{
 			if(myServer.canPlay)
-				myServer.playThisCard(sourceCard);			
+				myServer.playThisCard(sourceCard);
 			
 		}catch(NullPointerException ex){
 			ex.printStackTrace();
@@ -31,7 +31,7 @@ public class MyCardListener extends MouseAdapter {
 	
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		super.mouseEntered(e);		
+		super.mouseEntered(e);
 		
 		sourceCard = (UNOCard) e.getSource();
 		Point p = sourceCard.getLocation();
@@ -45,11 +45,11 @@ public class MyCardListener extends MouseAdapter {
 		Point p = sourceCard.getLocation();
 		p.y +=20;
 		sourceCard.setLocation(p);
-	}	
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		
-	}	
+	}
 
 }

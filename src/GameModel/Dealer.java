@@ -3,17 +3,16 @@ package GameModel;
 Code created by Josh Braza 
 */
 
+import CardModel.CardDeck;
+import Interfaces.GameConstants;
+import View.UNOCard;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Stack;
 
-import CardModel.CardDeck;
-import Interfaces.GameConstants;
-import View.UNOCard;
-
 public class Dealer implements GameConstants {
 
-	private CardDeck cardDeck;
+	private final CardDeck cardDeck;
 	private Stack<UNOCard> CardStack;
 
 	public Dealer() {
@@ -24,7 +23,7 @@ public class Dealer implements GameConstants {
 	public Stack<UNOCard> shuffle() {
 
 		LinkedList<UNOCard> DeckOfCards = cardDeck.getCards();
-		LinkedList<UNOCard> shuffledCards = new LinkedList<UNOCard>();
+		LinkedList<UNOCard> shuffledCards = new LinkedList<>();
 
 		while (!DeckOfCards.isEmpty()) {
 			int totalCards = DeckOfCards.size();
@@ -37,7 +36,7 @@ public class Dealer implements GameConstants {
 			shuffledCards.add(randomCard);
 		}
 
-		CardStack = new Stack<UNOCard>();
+		CardStack = new Stack<>();
 		for (UNOCard card : shuffledCards) {
 			CardStack.add(card);
 		}

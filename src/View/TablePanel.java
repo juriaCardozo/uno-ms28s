@@ -3,22 +3,20 @@ package View;
 Code created by Josh Braza 
 */
 
+import CardModel.WildCard;
+import Interfaces.GameConstants;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import javax.swing.JPanel;
-
-import CardModel.WildCard;
-import Interfaces.GameConstants;
 
 @SuppressWarnings("serial")
 public class TablePanel extends JPanel implements GameConstants {
 	
 	private UNOCard topCard;
-	private JPanel table;
+	private final JPanel table;
 	
 	public TablePanel(UNOCard firstCard){
 		setOpaque(false);

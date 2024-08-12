@@ -5,16 +5,16 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-
 import javax.swing.JPanel;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
 
 @SuppressWarnings("serial")
 public class InfoPanel extends JPanel {
 	private String error;
 	private String text;
+	private int xPos;
 	private int panelCenter;
 
 	private int you = 0;
@@ -30,6 +30,7 @@ public class InfoPanel extends JPanel {
 		updateText(text);
 	}
 
+    @Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		panelCenter = getWidth() / 2;
@@ -45,7 +46,7 @@ public class InfoPanel extends JPanel {
 
 			// Determine the width of the word to position
 			FontMetrics fm = this.getFontMetrics(adjustedFont);
-			int xPos = panelCenter - fm.stringWidth(error) / 2;
+			xPos = panelCenter - fm.stringWidth(error) / 2;
 
 			g.setFont(adjustedFont);
 			g.setColor(Color.red);
@@ -60,7 +61,7 @@ public class InfoPanel extends JPanel {
 
 		// Determine the width of the word to position
 		FontMetrics fm = this.getFontMetrics(adjustedFont);
-		int xPos = panelCenter - fm.stringWidth(text) / 2;
+		xPos = panelCenter - fm.stringWidth(text) / 2;
 
 		g.setFont(adjustedFont);
 		g.setColor(new Color(228, 108, 10));
@@ -73,8 +74,8 @@ public class InfoPanel extends JPanel {
 		g.setColor(new Color(127, 127, 127));
 
 		// Determine the width of the word to position
-		String text = "Played Cards";
-		int xPos = panelCenter - fm.stringWidth(text) / 2;
+		text = "Played Cards";
+		xPos = panelCenter - fm.stringWidth(text) / 2;
 
 		g.setFont(adjustedFont);
 		g.drawString(text, xPos, 120);
@@ -97,7 +98,7 @@ public class InfoPanel extends JPanel {
 		// g.drawString(text, xPos, 190);
 	}
 
-	public void updateText(String newText) {
+	public final void updateText(String newText) {
 		text = newText;
 	}
 

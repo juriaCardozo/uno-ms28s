@@ -1,22 +1,21 @@
 package CardModel;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
-import java.awt.Color;
-import java.util.LinkedList;
-
 import Interfaces.GameConstants;
 import ServerController.MyCardListener;
 import View.UNOCard;
+import java.awt.Color;
+import java.util.LinkedList;
 
 /**
  * This Class contains standard 108-Card stack
  */
 public class CardDeck implements GameConstants {
-	private LinkedList<UNOCard> UNOcards;
+	private final LinkedList<UNOCard> UNOcards;
 	
 	public CardDeck(){
-		UNOcards = new LinkedList<UNOCard>();
+		UNOcards = new LinkedList<>();
 		
 		addCards();
 		addCardListener(CARDLISTENER);
@@ -39,8 +38,8 @@ public class CardDeck implements GameConstants {
 			for(String type : ActionTypes){
 				for(int i=0;i<2;i++)
 					UNOcards.add(new ActionCard(color, type));
-			}					
-		}		
+			}
+		}
 		
 		for(String type : WildTypes){
 			for(int i=0;i<4;i++){
@@ -51,12 +50,12 @@ public class CardDeck implements GameConstants {
 	}
 	
 	//Cards have MouseListener
-	public void addCardListener(MyCardListener listener){
+	public final void addCardListener(MyCardListener listener){
 		for(UNOCard card: UNOcards)
 		card.addMouseListener(listener);
 	}
 	
 	public LinkedList<UNOCard> getCards(){
 		return UNOcards;
-	}	
+	}
 }

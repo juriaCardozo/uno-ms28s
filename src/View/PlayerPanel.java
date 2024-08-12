@@ -3,7 +3,6 @@ package View;
 Code created by Josh Braza 
 */
 
-import GameModel.PC;
 import GameModel.Player;
 import Interfaces.GameConstants;
 import java.awt.Color;
@@ -20,20 +19,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class PlayerPanel extends JPanel implements GameConstants {
+public final class PlayerPanel extends JPanel implements GameConstants {
 
 	private Player player;
 	private String name;
-	private PC pc = new PC();
 
-	private Box myLayout;
-	private JLayeredPane cardHolder;
+	private final Box myLayout;
+	private final JLayeredPane cardHolder;
 	private Box controlPanel;
 
 	private JButton draw;
 	private JButton sayUNO;
 	private JLabel nameLbl;
-	private MyButtonHandler handler;
+	private final MyButtonHandler handler;
 
 	// Constructor
 	public PlayerPanel(Player newPlayer) {
@@ -155,6 +153,7 @@ public class PlayerPanel extends JPanel implements GameConstants {
 	
 	class MyButtonHandler implements ActionListener{
 		
+        @Override
 		public void actionPerformed(ActionEvent e) {
 			
 			if(player.isMyTurn()){

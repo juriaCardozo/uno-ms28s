@@ -1,8 +1,7 @@
 package GameModel;
 
-import java.util.LinkedList;
-
 import View.UNOCard;
+import java.util.LinkedList;
 
 public class Player {
 
@@ -14,15 +13,15 @@ public class Player {
 	private int playedCards = 0;
 
 	public Player() {
-		myCards = new LinkedList<UNOCard>();
+		myCards = new LinkedList<>();
 	}
 
 	public Player(String player) {
 		setName(player);
-		myCards = new LinkedList<UNOCard>();
+		myCards = new LinkedList<>();
 	}
 
-	public void setName(String newName) {
+	public final void setName(String newName) {
 		this.name = newName;
 	}
 
@@ -68,7 +67,7 @@ public class Player {
 	}
 
 	public boolean hasCards() {
-		return (myCards.isEmpty()) ? false : true;
+		return !(myCards.isEmpty());
 	}
 
 	public boolean getSaidUNO() {
@@ -84,6 +83,6 @@ public class Player {
 	}
 
 	public void setCards() {
-		myCards = new LinkedList<UNOCard>();
+		myCards = new LinkedList<>();
 	}
 }

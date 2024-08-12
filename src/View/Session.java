@@ -2,22 +2,20 @@ package View;
 /*
 Code created by Josh Braza 
 */
+import GameModel.Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-
 import javax.swing.JPanel;
-
-import GameModel.Game;
 
 @SuppressWarnings("serial")
 public class Session extends JPanel {
 	private PlayerPanel player1;
 	private PlayerPanel player2;
-	private TablePanel table;	
+	private final TablePanel table;
 	
-	private Game game;
+	private final Game game;
 	
 	public Session(Game newGame, UNOCard firstCard){
 		setPreferredSize(new Dimension(960,720));
@@ -33,7 +31,7 @@ public class Session extends JPanel {
 		
 		add(player1,BorderLayout.NORTH);
 		add(table, BorderLayout.CENTER);
-		add(player2, BorderLayout.SOUTH);		
+		add(player2, BorderLayout.SOUTH);
 	}
 	
 	private void setPlayers() {

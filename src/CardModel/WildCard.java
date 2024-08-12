@@ -1,10 +1,6 @@
 package CardModel;
-/*
-Code created by Josh Braza 
-*/
-import java.awt.Color;
-
 import View.UNOCard;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class WildCard extends UNOCard {
@@ -14,7 +10,7 @@ public class WildCard extends UNOCard {
 	}
 	
 	public WildCard(String cardValue){
-		super(BLACK, WILD, cardValue);		
+		super(BLACK, WILD, cardValue);
 	}
 	
 	public void useWildColor(Color wildColor){

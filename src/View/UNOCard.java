@@ -3,6 +3,8 @@ package View;
 /*
 Code created by Josh Braza 
 */
+import Interfaces.CardInterface;
+import Interfaces.UNOConstants_Original;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -12,13 +14,9 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-
-import Interfaces.CardInterface;
-import Interfaces.UNOConstants_Original;
 
 @SuppressWarnings("serial")
 public abstract class UNOCard extends JPanel implements CardInterface, UNOConstants_Original {
@@ -27,9 +25,10 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 	private String value = null;
 	private int type = 0;
 	private boolean showValue = false;
+	private int FontHeight, StringWidth;
 
-	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
-	private Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
+	private final Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
+	private final Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
 
 	public UNOCard() {
 	}
@@ -51,6 +50,7 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		this.addMouseListener(new MouseHandler());
 	}
 
+    @Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -86,8 +86,8 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		// Value in the center
 		Font defaultFont = new Font("Helvetica", Font.BOLD, cardWidth / 2 + 5);
 		FontMetrics fm = this.getFontMetrics(defaultFont);
-		int StringWidth = fm.stringWidth(value) / 2;
-		int FontHeight = defaultFont.getSize() * 1 / 3;
+		StringWidth = fm.stringWidth(value) / 2;
+		FontHeight = defaultFont.getSize() * 1 / 3;
 
 		g.setColor(cardColor);
 		g.setFont(defaultFont);
@@ -129,8 +129,8 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		// Value in the center
 		Font defaultFont = new Font("Helvetica", Font.BOLD, cardWidth / 3);
 		FontMetrics fm = this.getFontMetrics(defaultFont);
-		int StringWidth = fm.stringWidth("UNO") / 2;
-		int FontHeight = defaultFont.getSize() * 1 / 3;
+		StringWidth = fm.stringWidth("UNO") / 2;
+		FontHeight = defaultFont.getSize() * 1 / 3;
 
 		g.setColor(Color.YELLOW);
 		g.setFont(defaultFont);
@@ -142,10 +142,12 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 	 */
 	class MouseHandler extends MouseAdapter {
 
+        @Override
 		public void mouseEntered(MouseEvent e) {
 			setBorder(focusedBorder);
 		}
 
+		@Override
 		public void mouseExited(MouseEvent e) {
 			setBorder(defaultBorder);
 		}
@@ -155,10 +157,12 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		this.setPreferredSize(newSize);
 	}
 
+	@Override
 	public void setColor(Color newColor) {
 		this.cardColor = newColor;
 	}
 
+	@Override
 	public Color getColor() {
 		return cardColor;
 	}

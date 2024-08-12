@@ -15,7 +15,7 @@ public class MyButtonListener implements ActionListener {
 	
 	public void drawCard() {
 		if(myServer.canPlay)
-			myServer.requestCard();	
+			myServer.requestCard();
 	}
 	
 	public void sayUNO() {

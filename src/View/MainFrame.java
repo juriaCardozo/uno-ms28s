@@ -3,11 +3,10 @@ package View;
 Code created by Josh Braza 
 */
 
-import javax.swing.JFrame;
-
 import Interfaces.GameConstants;
 import ServerController.Observer;
 import ServerController.Server;
+import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements GameConstants {
@@ -16,7 +15,7 @@ public class MainFrame extends JFrame implements GameConstants {
 	private Server server;
 	private Observer observer;
 
-	public void setObserver(Observer newObserver) {
+	public final void setObserver(Observer newObserver) {
 		observer = newObserver;
 	}
 
@@ -29,7 +28,7 @@ public class MainFrame extends JFrame implements GameConstants {
 		startGame();
 	}
 
-	public void startGame() {
+	public final void startGame() {
 		server = new Server();
 		CARDLISTENER.setServer(server);
 		BUTTONLISTENER.setServer(server);

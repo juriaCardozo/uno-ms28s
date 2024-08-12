@@ -1,7 +1,7 @@
 package Interfaces;
 import java.awt.Color;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
 public interface UNOConstants_Original {
 	public static Color BLACK = new Color(0,0,0);

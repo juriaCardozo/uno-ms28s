@@ -1,5 +1,5 @@
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
 
 import ServerController.Observer;
@@ -9,23 +9,17 @@ import javax.swing.SwingUtilities;
 
 public class Main {
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				startNewGame();
-			}
-		});
+		SwingUtilities.invokeLater(Main::startNewGame);
 	}
 
 	static public void startNewGame() {
 		Observer observer = new Observer();
 		MainFrame frame = new MainFrame(observer);
 
-		observer.setFunc(new Runnable() {
-			public void run() {
-				frame.setVisible(false);
-				startNewGame();
-			}
-		});
+		observer.setFunc(() -> {
+                    frame.setVisible(false);
+                    startNewGame();
+                });
 
 		frame.setVisible(true);
 		frame.setResizable(false);

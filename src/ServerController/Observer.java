@@ -1,6 +1,6 @@
 package ServerController;
 
-import java.lang.Runnable;
+// import java.lang.Runnable;
 
 public class Observer {
 	private Runnable func;
