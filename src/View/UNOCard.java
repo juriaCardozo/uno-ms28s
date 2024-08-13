@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import Interfaces.CardInterface;
+import Interfaces.GameConstants;
 import Interfaces.UNOConstants_Original;
 
 @SuppressWarnings("serial")
@@ -107,31 +108,34 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		
 		int cardWidth = CARDSIZE.width;
 		int cardHeight = CARDSIZE.height;
-		
-		//Paints the external border of the card
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, cardWidth, cardHeight);
-		
+
 		//Paints the color of the card
 		int margin = 5;
 		g.setColor(Color.BLACK);
 		g.fillRect(margin, margin, cardWidth-2*margin, cardHeight-2*margin);
 		
 		//Paints the oval format in the center of the card
-		g.setColor(Color.RED);
+		g.setColor(GameConstants.unoConstants.getRED(GameConstants.selectedPalette));
 		AffineTransform org = g.getTransform();
-		g.rotate(45,cardWidth*3/4,cardHeight*3/4);		
+		g.rotate(45,cardWidth*3/4,cardHeight*3/4);
 
 		g.fillOval(0,cardHeight*1/4,cardWidth*3/5, cardHeight);
-		g.setTransform(org);		
-		
-		//Value in the center		
+		g.setTransform(org);
+
+		//Paints the external border of the card
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, cardWidth, margin); //Top
+		g.fillRect(0, cardHeight, cardWidth, margin); //Bottom
+		g.fillRect(0, margin, margin, cardHeight); //Left
+		g.fillRect(cardWidth-5, 0, margin, cardHeight); //Right
+
+		//Value in the center
 		Font defaultFont = new Font("Helvetica", Font.BOLD, cardWidth/3);		
 		FontMetrics fm = this.getFontMetrics(defaultFont);
 		int StringWidth = fm.stringWidth("UNO")/2;
 		int FontHeight = defaultFont.getSize()*1/3;
 		
-		g.setColor(Color.YELLOW);
+		g.setColor(GameConstants.unoConstants.getYELLOW(GameConstants.selectedPalette));
 		g.setFont(defaultFont);
 		g.drawString("UNO", cardWidth/2-StringWidth, cardHeight/2+FontHeight);
 	}
