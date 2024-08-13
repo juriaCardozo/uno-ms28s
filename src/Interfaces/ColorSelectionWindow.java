@@ -13,9 +13,6 @@ public class ColorSelectionWindow {
         UNOConstants unoConstants = new UNOConstants();
         // Defina a paleta com base na escolha do jogador
         switch (choice) {
-            case 0: // Padrão
-                selectedPalette = "Padrao";
-                break;
             case 1: // Acromatopsia
                 selectedPalette = "Acromatopsia";
                 break;
@@ -28,8 +25,8 @@ public class ColorSelectionWindow {
             case 4: // Protanomalia
                 selectedPalette = "Protanomalia";
                 break;
-            default: // Padrão (caso o jogador cancele a seleção)
-                selectedPalette = "Padrão";
+            default: // Padrão
+                selectedPalette = "Padrao";
                 break;
         }
     }
