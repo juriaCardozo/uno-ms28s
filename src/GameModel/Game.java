@@ -329,11 +329,8 @@ public class Game implements GameConstants {
 	}
 
 	public boolean isPCsTurn(){
-		if(pc.isMyTurn()){
-			return true;
-		}
-		return false;
-	}
+        return pc.isMyTurn();
+    }
 
 	//if it's PC's turn, play it for pc
 	public void playPC(UNOCard topCard) {
