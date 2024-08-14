@@ -26,7 +26,6 @@ public class TablePanel extends JPanel implements GameConstants {
 		
 		topCard = firstCard;
 		table = new JPanel();
-		table.setBackground(new Color(64,64,64));
 		
 		setTable();
 		setComponents();

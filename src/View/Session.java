@@ -28,6 +28,7 @@ public class Session extends JPanel {
 		
 		setPlayers();
 		table = new TablePanel(firstCard);
+		table.setBackgroundColor(firstCard);
 		player1.setOpaque(false);
 		player2.setOpaque(false);
 		
