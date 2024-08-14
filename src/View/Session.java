@@ -21,7 +21,6 @@ public class Session extends JPanel {
 	
 	public Session(Game newGame, UNOCard firstCard){
 		setPreferredSize(new Dimension(960,720));
-		setBackground(new Color(30,36,40));
 		setLayout(new BorderLayout());
 		
 		game = newGame;
