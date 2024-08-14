@@ -125,7 +125,7 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		//Paints the external border of the card
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, cardWidth, margin); //Top
-		g.fillRect(0, cardHeight, cardWidth, margin); //Bottom
+		g.fillRect(0, cardHeight-margin, cardWidth, margin); //Bottom
 		g.fillRect(0, margin, margin, cardHeight); //Left
 		g.fillRect(cardWidth-5, 0, margin, cardHeight); //Right
 
