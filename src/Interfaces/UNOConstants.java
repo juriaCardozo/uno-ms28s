@@ -17,9 +17,6 @@ public class UNOConstants {
     // Getters para as cores
     public Color getRED(String palette) {
         switch (palette) {
-            case "Padrao":
-                RED = new Color(192, 80, 77);
-                break;
             case "Acromatopsia":
                 // Defina as cores para Acromatopsia aqui
                 RED = new Color(148, 148, 148);
@@ -37,8 +34,8 @@ public class UNOConstants {
                 RED = new Color(159, 87, 64);
                 break;
             default:
-                // Defina um valor padrão aqui, se necessário
-                RED = new Color(255, 25, 94);
+                // Valor padrão
+                RED = new Color(219, 60, 40);
                 break;
         }
         return RED;
@@ -46,9 +43,6 @@ public class UNOConstants {
 
     public Color getBLUE(String palette) {
         switch (palette) {
-            case "Padrao":
-                BLUE = new Color(31, 73, 125);
-                break;
             case "Acromatopsia":
                 // Defina as cores para Acromatopsia aqui
                 BLUE = new Color(105, 105, 103);
@@ -66,8 +60,8 @@ public class UNOConstants {
                 BLUE = new Color(26, 110, 191);
                 break;
             default:
-                // Defina um valor padrão aqui, se necessário
-                BLUE = new Color(31, 73, 125);
+                // Valor padrão
+                BLUE = new Color(18, 117, 186);
                 break;
         }
         return BLUE;
@@ -75,9 +69,6 @@ public class UNOConstants {
 
     public Color getGREEN(String palette) {
         switch (palette) {
-            case "Padrao":
-                GREEN = new Color(0, 153, 0);
-                break;
             case "Acromatopsia":
                 // Defina as cores para Acromatopsia aqui
                 GREEN = new Color(180, 180, 180);
@@ -95,7 +86,7 @@ public class UNOConstants {
                 GREEN = new Color(151, 211, 68);
                 break;
             default:
-                // Defina um valor padrão aqui, se necessário
+                // Valor padrão
                 GREEN = new Color(0, 153, 0);
                 break;
         }
@@ -104,9 +95,6 @@ public class UNOConstants {
 
     public Color getYELLOW(String palette) {
         switch (palette) {
-            case "Padrao":
-                YELLOW = new Color(255, 204, 0);
-                break;
             case "Acromatopsia":
                 // Defina as cores para Acromatopsia aqui
                 YELLOW = new Color(210, 189, 189);
@@ -124,7 +112,7 @@ public class UNOConstants {
                 YELLOW = new Color(245, 216, 12);
                 break;
             default:
-                // Defina um valor padrão aqui, se necessário
+                // Valor padrão
                 YELLOW = new Color(255, 204, 0);
                 break;
         }

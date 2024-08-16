@@ -2,13 +2,13 @@ package ServerController;
 /*
 Code created by Josh Braza
 */
-import java.awt.Color;
+import java.awt.*;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import CardModel.WildCard;
 import GameModel.Game;
@@ -16,8 +16,6 @@ import GameModel.Player;
 import Interfaces.GameConstants;
 import View.Session;
 import View.UNOCard;
-
-import ServerController.Observer;
 
 public class Server implements GameConstants {
 	private Game game;
@@ -55,6 +53,8 @@ public class Server implements GameConstants {
 
 	//return if it's 2-Player's mode or PC-mode
 	private int requestMode() {
+
+		setGameTheme();
 
 		Object[] options = { "vs PC", "Manual", "Cancel" };
 
@@ -261,5 +261,21 @@ public class Server implements GameConstants {
 		} else {
 			System.exit(1);
 		}
+	}
+
+	private void setGameTheme() {
+		Color corFundoModais = new Color(30,36,40);
+		Color corTexto = Color.white;
+
+		UIManager.put("OptionPane.background", corFundoModais); 					// Cor de fundo do diálogo
+		UIManager.put("Panel.background", corFundoModais);      					// Cor de fundo do painel
+
+		UIManager.put("Button.background", new Color(102, 178, 255));     	// Cor de fundo dos botões
+		UIManager.put("Button.foreground", Color.BLACK);                  			// Cor do texto nos botões
+		UIManager.put("Button.font", new Font("Arial", Font.BOLD, 14));	// Fonte do texto nos botões
+
+		UIManager.put("OptionPane.messageForeground", corTexto);        			// Cor do texto dos diálogos
+		UIManager.put("Panel.messageForeground", corTexto);        					// Cor do texto do painel
+
 	}
 }
