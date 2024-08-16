@@ -45,7 +45,7 @@ public class Game implements GameConstants {
 		Player player1 = (GAMEMODE==vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);
 
-		//playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
+		playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
 
 		player2.toggleTurn();				//Initially, player2's turn
 
