@@ -193,13 +193,13 @@ public class Server implements GameConstants {
 		} else {
 
 			ArrayList<String> colors = new ArrayList<String>();
-			colors.add("RED");
-			colors.add("BLUE");
-			colors.add("GREEN");
-			colors.add("YELLOW");
+			colors.add("VERMELHO");
+			colors.add("AZUL");
+			colors.add("VERDE");
+			colors.add("AMARELO");
 
 			String chosenColor = (String) JOptionPane.showInputDialog(null,
-					"Choose a color", "Wild Card Color",
+					"Escolha uma cor", "Carta Escolhe Cor",
 					JOptionPane.DEFAULT_OPTION, null, colors.toArray(), null);
 
 			if (chosenColor == null) {
