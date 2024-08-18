@@ -2,18 +2,16 @@ package View;
 /*
 Code created by Josh Braza 
 */
+import Interfaces.CardInterface;
+import Interfaces.GameConstants;
+import Interfaces.UNOConstants_Original;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-
-import Interfaces.CardInterface;
-import Interfaces.GameConstants;
-import Interfaces.UNOConstants_Original;
 
 @SuppressWarnings("serial")
 public abstract class UNOCard extends JPanel implements CardInterface, UNOConstants_Original {
@@ -189,7 +187,7 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		g.fillRect(margin, margin, cardWidth-2*margin, cardHeight-2*margin);
 
 		//Paints the oval format in the center of the card
-		g.setColor(Color.RED);
+		g.setColor(GameConstants.unoConstants.getRED(GameConstants.selectedPalette));
 		AffineTransform org = g.getTransform();
 		g.rotate(45,cardWidth*3/4,cardHeight*3/4);
 
@@ -209,24 +207,24 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		int StringWidth = fm.stringWidth("UNO")/2;
 		int FontHeight = defaultFont.getSize()*1/3;
 
-		g.setColor(Color.YELLOW);
+		g.setColor(GameConstants.unoConstants.getYELLOW(GameConstants.selectedPalette));
 		g.setFont(defaultFont);
 		g.drawString("UNO", cardWidth/2-StringWidth, cardHeight/2+FontHeight);
 
 		int lineHeight = 12;
-		g.setColor(new Color(0, 153, 0));
+		g.setColor(GameConstants.unoConstants.getGREEN(GameConstants.selectedPalette));
 		g.fillRect(0, cardHeight - lineHeight, cardWidth, lineHeight);
 
 		lineHeight = 12;
-		g.setColor(new Color(31, 73, 125));
+		g.setColor(GameConstants.unoConstants.getBLUE(GameConstants.selectedPalette));
 		g.fillRect(25, cardHeight - lineHeight, cardWidth, lineHeight);
 
 		lineHeight = 12;
-		g.setColor(new Color(192, 80, 77));
+		g.setColor(GameConstants.unoConstants.getRED(GameConstants.selectedPalette));
 		g.fillRect(50, cardHeight - lineHeight, cardWidth, lineHeight);
 
 		lineHeight = 12;
-		g.setColor(new Color(255, 204, 0));
+		g.setColor(GameConstants.unoConstants.getYELLOW(GameConstants.selectedPalette));
 		g.fillRect(75, cardHeight - lineHeight, cardWidth, lineHeight);
 
 		lineHeight = 10;
