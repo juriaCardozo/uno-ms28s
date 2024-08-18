@@ -46,7 +46,7 @@ public class Game implements GameConstants {
 		Player player1 = (GAMEMODE==vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);
 
-//		playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
+		playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
 
 		player2.toggleTurn();				//Initially, player2's turn
 
@@ -183,7 +183,7 @@ public class Game implements GameConstants {
 		for (Player p : players) {
 			if (p.hasCard(playedCard)){
 				p.removeCard(playedCard);
-//				playCardSound();
+				playCardSound();
 
 				if (p.getTotalCards() == 1 && !p.getSaidUNO()) {
 					sayUNO(p);
@@ -218,7 +218,7 @@ public class Game implements GameConstants {
 			}
 		}
 
-//		playAudio("src/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
+		playAudio("src/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
 
 		if (!canPlay)
 			switchTurn();
