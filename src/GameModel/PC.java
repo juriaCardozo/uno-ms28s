@@ -3,14 +3,15 @@ package GameModel;
 Code created by Josh Braza 
 */
 
-import java.awt.Color;
-import java.awt.event.MouseEvent;
-
 import CardModel.WildCard;
 import Interfaces.GameConstants;
 import View.UNOCard;
+import java.awt.Color;
+import java.awt.event.MouseEvent;
 
 public class PC extends Player implements GameConstants {
+
+	private boolean done;
 
 	public PC() {
 		setName("PC");
@@ -23,13 +24,13 @@ public class PC extends Player implements GameConstants {
 	//PC plays a card
 	public boolean play(UNOCard topCard) {
 
-		boolean done = false;
+		done = false;
 
 		Color color = topCard.getColor();
 		String value = topCard.getValue();
 		
 		if(topCard.getType()==WILD){
-			color = ((WildCard) topCard).getWildColor();			
+			color = ((WildCard) topCard).getWildColor();
 		}
 
 		done = playCard(color, value);

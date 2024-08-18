@@ -2,26 +2,23 @@ package ServerController;
 /*
 Code created by Josh Braza
 */
-import java.awt.*;
-
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Stack;
-
-import javax.swing.*;
-
 import CardModel.WildCard;
 import GameModel.Game;
 import GameModel.Player;
 import Interfaces.GameConstants;
 import View.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Stack;
+import javax.swing.*;
 
 public class Server implements GameConstants {
 	private Game game;
 	private Session session;
 	private Stack<UNOCard> playedCards;
 	public boolean canPlay;
-	private int mode;
+	private final int mode;
 	private Observer observer;
 
 	public Server() {
@@ -30,9 +27,9 @@ public class Server implements GameConstants {
 		startGame();
 	}
 
-	public void startGame() {
+	public final void startGame() {
 		game = new Game(mode);
-		playedCards = new Stack<UNOCard>();
+		playedCards = new Stack<>();
 
 		// First Card
 		UNOCard firstCard = game.getCard();
@@ -100,14 +97,10 @@ public class Server implements GameConstants {
 				boolean cardConfirmed = true;
 				// function cards ??
 				switch (clickedCard.getType()) {
-					case ACTION:
-						performAction(clickedCard);
-						break;
-					case WILD:
-						cardConfirmed = performWild((WildCard) clickedCard);
-						break;
-					default:
-						break;
+					case ACTION -> performAction(clickedCard);
+					case WILD -> cardConfirmed = performWild((WildCard) clickedCard);
+					default -> {
+                                }
 				}
 				if(cardConfirmed) {
 					playClickedCard(clickedCard);
@@ -192,7 +185,7 @@ public class Server implements GameConstants {
 			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
 		} else {
 
-			ArrayList<String> colors = new ArrayList<String>();
+			ArrayList<String> colors = new ArrayList<>();
 			colors.add("VERMELHO");
 			colors.add("AZUL");
 			colors.add("VERDE");

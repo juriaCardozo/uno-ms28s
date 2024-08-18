@@ -2,11 +2,9 @@ package CardModel;
 /*
 Code created by Josh Braza 
 */
+import View.UNOCard;
 import java.awt.Color;
 
-import View.UNOCard;
-
-@SuppressWarnings("serial")
 public class NumberCard extends UNOCard {
 
 	public NumberCard(){

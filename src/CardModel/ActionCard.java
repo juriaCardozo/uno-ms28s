@@ -1,9 +1,9 @@
 package CardModel;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
-import java.awt.Color;
 import View.UNOCard;
+import java.awt.Color;
 
 public class ActionCard extends UNOCard{
 	
@@ -11,5 +11,5 @@ public class ActionCard extends UNOCard{
 	
 	public ActionCard(Color cardColor, String cardValue, boolean minimalistStyle){
 		super(cardColor,ACTION, cardValue, minimalistStyle);
-	}	
+	}
 }

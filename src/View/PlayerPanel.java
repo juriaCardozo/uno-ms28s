@@ -3,35 +3,32 @@ package View;
 Code created by Josh Braza 
 */
 
+import GameModel.Player;
+import Interfaces.GameConstants;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import GameModel.Player;
-import Interfaces.GameConstants;
-
-@SuppressWarnings("serial")
 public class PlayerPanel extends JPanel implements GameConstants {
 
 	private Player player;
 	private String name;
 
-	private Box myLayout;
-	private JLayeredPane cardHolder;
+	private final Box myLayout;
+	private final JLayeredPane cardHolder;
 	private Box controlPanel;
 
 	private RoundedJButton draw;
 	private RoundedJButton sayUNO;
 	private JLabel nameLbl;
-	private MyButtonHandler handler;
+	private final MyButtonHandler handler;
 
 	// Constructor
 	public PlayerPanel(Player newPlayer) {
@@ -61,7 +58,7 @@ public class PlayerPanel extends JPanel implements GameConstants {
 	}
 
 	@SuppressWarnings("static-access")
-	public void setCards() {
+	public final void setCards() {
 		cardHolder.removeAll();
 
 		// Origin point at the center
@@ -84,7 +81,7 @@ public class PlayerPanel extends JPanel implements GameConstants {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public final void setPlayer(Player player) {
 		this.player = player;
 		setPlayerName(player.getName());
 	}
@@ -135,13 +132,14 @@ public class PlayerPanel extends JPanel implements GameConstants {
 		}
 	}
 	
-	public void enableButtons() {
+	public final void enableButtons() {
 		draw.setEnabled(player.isMyTurn());
 		sayUNO.setEnabled(player.isMyTurn());
 	}
 	
 	class MyButtonHandler implements ActionListener{
 		
+        @Override
 		public void actionPerformed(ActionEvent e) {
 			
 			if(player.isMyTurn()){

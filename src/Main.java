@@ -1,33 +1,27 @@
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
 
-import javax.swing.JFrame;
-
-import javax.swing.SwingUtilities;
-import View.MainFrame;
-
 import ServerController.Observer;
+import View.MainFrame;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class Main {
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {					
-			public void run() {
-				startNewGame();			
-			}	
-		});	
+		SwingUtilities.invokeLater(() -> {
+                    startNewGame();
+                });
 	}
 	
 	static public void startNewGame() {
-		Observer observer = new Observer();		
+		Observer observer = new Observer();
 		MainFrame frame = new MainFrame(observer);
 
-		observer.setFunc(new Runnable() {
-			public void run() {
-				frame.setVisible(false);
-				startNewGame();
-			}
-		});
+		observer.setFunc(() -> {
+                    frame.setVisible(false);
+                    startNewGame();
+                });
 		
 		frame.setVisible(true);
 		frame.setResizable(false);

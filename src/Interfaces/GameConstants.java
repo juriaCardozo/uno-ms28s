@@ -2,11 +2,10 @@ package Interfaces;
 /*
 Code created by Josh Braza 
 */
-import java.awt.Color;
-
 import ServerController.MyButtonListener;
 import ServerController.MyCardListener;
 import View.InfoPanel;
+import java.awt.Color;
 
 
 public interface GameConstants extends UNOConstants_Original {

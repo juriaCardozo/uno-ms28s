@@ -3,29 +3,27 @@ package GameModel;
 Code created by Josh Braza
 */
 
-import java.io.FileNotFoundException;
-import java.util.Stack;
-
-import javax.swing.JOptionPane;
-
 import CardModel.*;
 import Interfaces.GameConstants;
 import View.UNOCard;
-import javax.sound.sampled.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Stack;
+import javax.sound.sampled.*;
+import javax.swing.JOptionPane;
 
 //import static Interfaces.UNOConstants.WILD;
 
 public class Game implements GameConstants {
 
-	private Player[] players;
+	private final Player[] players;
 	private boolean isOver;
-	private int GAMEMODE;
+	private final int GAMEMODE;
 
 	private PC pc;
-	private Dealer dealer;
-	private Stack<UNOCard> cardStack;
+	private final Dealer dealer;
+	private final Stack<UNOCard> cardStack;
 
 	private Clip backgroundMusicClip;
 
@@ -84,10 +82,10 @@ public class Game implements GameConstants {
 			backgroundMusicClip.start();
 		} catch (FileNotFoundException e) {
 			// Arquivo não encontrado
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 			// Outras exceções
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -99,75 +97,63 @@ public class Game implements GameConstants {
 	}
 
 	private void playAudio(String audioFilePath) { //pescar carta
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					File audioFile = new File(audioFilePath);
-					if (!audioFile.exists()) {
-						throw new FileNotFoundException("O arquivo de áudio não foi encontrado: " + audioFilePath);
-					}
-
-					AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-
-					Clip clip = AudioSystem.getClip();
-					clip.open(audioInputStream);
-
-					clip.start();
-
-					clip.addLineListener(new LineListener() {
-						@Override
-						public void update(LineEvent event) {
-							if (event.getType() == LineEvent.Type.STOP) {
-								clip.close();
-							}
-						}
-					});
-				} catch (FileNotFoundException e) {
-					// Lide com o erro de arquivo não encontrado
-					e.printStackTrace();
-				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-					// Lide com outras exceções
-					e.printStackTrace();
-				}
-			}
-		}).start();
+		new Thread(() -> {
+                    try {
+                        File audioFile = new File(audioFilePath);
+                        if (!audioFile.exists()) {
+                            throw new FileNotFoundException("O arquivo de áudio não foi encontrado: " + audioFilePath);
+                        }
+                        
+                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+                        
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        
+                        clip.start();
+                        
+                        clip.addLineListener((LineEvent event) -> {
+                            if (event.getType() == LineEvent.Type.STOP) {
+                                clip.close();
+                            }
+                        });
+                    } catch (FileNotFoundException e) {
+                        // Lide com o erro de arquivo não encontrado
+						System.out.println(e.getMessage());
+                    } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                        // Lide com outras exceções
+						System.out.println(e.getMessage());
+                    }
+                }).start();
 	}
 
 	private void playCardSound() { //jogar carta
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					File audioFile = new File("src/Sounds/depositphotos_414403158-track-short-recording-footstep-dry-grass.wav");
-					if (!audioFile.exists()) {
-						throw new FileNotFoundException("O arquivo de áudio não foi encontrado: " + audioFile.getPath());
-					}
-
-					AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-
-					Clip clip = AudioSystem.getClip();
-					clip.open(audioInputStream);
-
-					clip.start();
-
-					clip.addLineListener(new LineListener() {
-						@Override
-						public void update(LineEvent event) {
-							if (event.getType() == LineEvent.Type.STOP) {
-								clip.close();
-							}
-						}
-					});
-				} catch (FileNotFoundException e) {
-					// Lide com o erro de arquivo não encontrado
-					e.printStackTrace();
-				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-					// Lide com outras exceções
-					e.printStackTrace();
-				}
-			}
-		}).start();
+		new Thread(() -> {
+                    try {
+                        File audioFile = new File("src/Sounds/depositphotos_414403158-track-short-recording-footstep-dry-grass.wav");
+                        if (!audioFile.exists()) {
+                            throw new FileNotFoundException("O arquivo de áudio não foi encontrado: " + audioFile.getPath());
+                        }
+                        
+                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+                        
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        
+                        clip.start();
+                        
+                        clip.addLineListener((LineEvent event) -> {
+                            if (event.getType() == LineEvent.Type.STOP) {
+                                clip.close();
+                            }
+                        });
+                    } catch (FileNotFoundException e) {
+                        // Lide com o erro de arquivo não encontrado
+						System.out.println(e.getMessage());
+                    } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                        // Lide com outras exceções
+						System.out.println(e.getMessage());
+                    }
+                }).start();
 	}
 
 	public Player[] getPlayers() {
