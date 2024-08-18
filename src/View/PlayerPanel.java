@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -29,8 +28,8 @@ public class PlayerPanel extends JPanel implements GameConstants {
 	private JLayeredPane cardHolder;
 	private Box controlPanel;
 
-	private JButton draw;
-	private JButton sayUNO;
+	private RoundedJButton draw;
+	private RoundedJButton sayUNO;
 	private JLabel nameLbl;
 	private MyButtonHandler handler;
 
@@ -95,16 +94,14 @@ public class PlayerPanel extends JPanel implements GameConstants {
 	}
 
 	private void setControlPanel() {
-		draw = new JButton("Draw");
-		sayUNO = new JButton("Say UNO");
+		draw = new RoundedJButton("Draw", new Color(79, 129, 189), 20);
+		sayUNO = new RoundedJButton("Say UNO", new Color(149, 55, 53), 20);
 		nameLbl = new JLabel(name);
 
 		// style
-		draw.setBackground(new Color(79, 129, 189));
 		draw.setFont(new Font("Arial", Font.BOLD, 20));
 		draw.setFocusable(false);
 
-		sayUNO.setBackground(new Color(149, 55, 53));
 		sayUNO.setFont(new Font("Arial", Font.BOLD, 20));
 		sayUNO.setFocusable(false);
 

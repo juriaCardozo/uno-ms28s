@@ -33,11 +33,10 @@ public class Game implements GameConstants {
 
 		GAMEMODE = mode;
 		//Create players
-		String name = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog("Player 1") : "PC";
-		String name2 = JOptionPane.showInputDialog("Player 2");
-
-//		ColorSelectionWindow colorSelection = new ColorSelectionWindow();
-//		String selectedPalette = colorSelection.getSelectedPalette();
+		String name = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog(null, "Jogador 1:", "Nome do Jogador", JOptionPane.PLAIN_MESSAGE) : "PC";
+		String name2 = JOptionPane.showInputDialog(null, "Jogador 2:", "Nome do Jogador", JOptionPane.PLAIN_MESSAGE);
+		name = name.isEmpty() ? "Jogador 1" : name;
+		name2 = name2.isEmpty() ? "Jogador 2" : name2;
 
 		if(GAMEMODE==vsPC)
 			pc = new PC();

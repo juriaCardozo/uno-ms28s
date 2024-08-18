@@ -14,8 +14,7 @@ import CardModel.WildCard;
 import GameModel.Game;
 import GameModel.Player;
 import Interfaces.GameConstants;
-import View.Session;
-import View.UNOCard;
+import View.*;
 
 public class Server implements GameConstants {
 	private Game game;
@@ -60,7 +59,7 @@ public class Server implements GameConstants {
 
 		int n = JOptionPane.showOptionDialog(null,
 				"Choose a Game Mode to play", "Game Mode",
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
 				null, options, options[0]);
 
 		if (n == 2 || n < 0)
@@ -86,7 +85,6 @@ public class Server implements GameConstants {
 	public Session getSession() {
 		return this.session;
 	}
-
 
 	//request to play a card
 	public void playThisCard(UNOCard clickedCard) {
@@ -253,7 +251,7 @@ public class Server implements GameConstants {
 
 		int n = JOptionPane.showOptionDialog(null,
 				"Choose how to proceed", "select",
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
 				null, options, options[0]);
 
 		if (n == 0) {
