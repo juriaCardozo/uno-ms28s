@@ -33,8 +33,10 @@ public class Game implements GameConstants {
 
 		GAMEMODE = mode;
 		//Create players
-		String name = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog(null, "Jogador 1:", "Nome do Jogador", JOptionPane.PLAIN_MESSAGE) : "PC";
-		String name2 = JOptionPane.showInputDialog(null, "Jogador 2:", "Nome do Jogador", JOptionPane.PLAIN_MESSAGE);
+		String name = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 1:",
+				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE) : "PC";
+		String name2 = JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 2:",
+				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE);
 		name = name.isEmpty() ? "Jogador 1" : name;
 		name2 = name2.isEmpty() ? "Jogador 2" : name2;
 
@@ -44,7 +46,7 @@ public class Game implements GameConstants {
 		Player player1 = (GAMEMODE==vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);
 
-		playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
+//		playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
 
 		player2.toggleTurn();				//Initially, player2's turn
 
@@ -181,7 +183,7 @@ public class Game implements GameConstants {
 		for (Player p : players) {
 			if (p.hasCard(playedCard)){
 				p.removeCard(playedCard);
-				playCardSound();
+//				playCardSound();
 
 				if (p.getTotalCards() == 1 && !p.getSaidUNO()) {
 					sayUNO(p);
@@ -193,7 +195,7 @@ public class Game implements GameConstants {
 	}
 
 	private void sayUNO(Player p) {
-		infoPanel.setError(p.getName() + " Forgot to say UNO");
+		infoPanel.setError(p.getName() + " Esqueceu de dizer UNO!");
 		p.obtainCard(getCard());
 		p.obtainCard(getCard());
 	}
@@ -216,7 +218,7 @@ public class Game implements GameConstants {
 			}
 		}
 
-		playAudio("src/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
+//		playAudio("src/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
 
 		if (!canPlay)
 			switchTurn();
@@ -244,8 +246,8 @@ public class Game implements GameConstants {
 
 		for (Player p : players) {
 			if (p.isMyTurn()){
-				infoPanel.updateText(p.getName() + "'s Turn");
-				System.out.println(p.getName() + "'s Turn");
+				infoPanel.updateText("Vez de " + p.getName());
+				System.out.println("Vez de " + p.getName());
 			}
 		}
 		infoPanel.setDetail(playedCardsSize(), remainingCards());
@@ -321,7 +323,7 @@ public class Game implements GameConstants {
 			if (p.isMyTurn()) {
 				if (p.getTotalCards() == 2) {
 					p.saysUNO();
-					infoPanel.setError(p.getName() + " said UNO");
+					infoPanel.setError(p.getName() + " disse UNO!");
 				}
 			}
 		}

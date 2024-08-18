@@ -94,8 +94,8 @@ public class PlayerPanel extends JPanel implements GameConstants {
 	}
 
 	private void setControlPanel() {
-		draw = new RoundedJButton("Draw", new Color(79, 129, 189), 20);
-		sayUNO = new RoundedJButton("Say UNO", new Color(149, 55, 53), 20);
+		draw = new RoundedJButton("Comprar", new Color(79, 129, 189), 20);
+		sayUNO = new RoundedJButton("Dizer UNO!", new Color(149, 55, 53), 20);
 		nameLbl = new JLabel(name);
 
 		// style

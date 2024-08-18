@@ -55,10 +55,10 @@ public class Server implements GameConstants {
 
 		setGameTheme();
 
-		Object[] options = { "vs PC", "Manual", "Cancel" };
+		Object[] options = { "vs PC", "Jogador vs Jogador", "Cancelar" };
 
 		int n = JOptionPane.showOptionDialog(null,
-				"Choose a Game Mode to play", "Game Mode",
+				"Escolha um modo de jogo para jogar!", "Modo de Jogo",
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
 				null, options, options[0]);
 
@@ -91,7 +91,7 @@ public class Server implements GameConstants {
 
 		// Check player's turn
 		if (!isHisTurn(clickedCard)) {
-			infoPanel.setError("It's not your turn");
+			infoPanel.setError("Não é a sua vez");
 			infoPanel.repaint();
 		} else {
 
@@ -113,7 +113,7 @@ public class Server implements GameConstants {
 					playClickedCard(clickedCard);
 				}
 			} else {
-				infoPanel.setError("invalid move");
+				infoPanel.setError("Jogada inválida");
 				infoPanel.repaint();
 			}
 
@@ -142,7 +142,7 @@ public class Server implements GameConstants {
 
 		if (game.isOver()) {
 			canPlay = false;
-			infoPanel.updateText("GAME OVER");
+			infoPanel.updateText("Fim do Jogo!");
 			gameOverNewSession();
 		}
 	}
@@ -247,11 +247,11 @@ public class Server implements GameConstants {
 
 	public void gameOverNewSession() {
 
-		Object[] options = { "New round", "Cancel" };
+		Object[] options = { "Nova Partida", "Cancelar" };
 
 		int n = JOptionPane.showOptionDialog(null,
-				"Choose how to proceed", "select",
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+				"Como deseja prosseguir?", "A partida acabou!",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
 				null, options, options[0]);
 
 		if (n == 0) {

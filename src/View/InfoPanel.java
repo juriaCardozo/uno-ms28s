@@ -24,7 +24,7 @@ public class InfoPanel extends JPanel {
 		setPreferredSize(new Dimension(275,200));
 		setOpaque(false);
 		error = "";
-		text = "Game Started";
+		text = "O jogo começou";
 		
 		updateText(text);
 	}
@@ -72,13 +72,13 @@ public class InfoPanel extends JPanel {
 		g.setColor(new Color(127,127,127));
 		
 		//Determine the width of the word to position
-		String text = "Played Cards";
+		String text = "Cartas Jogadas";
 		int xPos = panelCenter - fm.stringWidth(text) / 2;
 		
 		g.setFont(adjustedFont);
 		g.drawString(text, xPos, 120);
 		
-		text = "Remaining: " + rest;
+		text = "Cartas restantes: " + rest;
 		xPos = panelCenter - fm.stringWidth(text) / 2;
 		g.drawString(text, xPos, 180);
 		
@@ -87,7 +87,7 @@ public class InfoPanel extends JPanel {
 		g.setFont(adjustedFont);
 		fm = this.getFontMetrics(adjustedFont);
 		
-		text = "You : "+you + "  PC : " + pc;
+		text = "Você : "+you + "  PC : " + pc;
 		xPos = panelCenter - fm.stringWidth(text) / 2;
 		g.drawString(text, xPos, 140);
 		
