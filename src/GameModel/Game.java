@@ -37,8 +37,8 @@ public class Game implements GameConstants {
 				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE) : "PC";
 		String name2 = JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 2:",
 				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE);
-		name = name.isEmpty() ? "Jogador 1" : name;
-		name2 = name2.isEmpty() ? "Jogador 2" : name2;
+		name = name == null || name.isEmpty() ? "Jogador 1" : name;
+		name2 = name2 == null || name2.isEmpty() ? "Jogador 2" : name2;
 
 		if(GAMEMODE==vsPC)
 			pc = new PC();
