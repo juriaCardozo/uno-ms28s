@@ -110,6 +110,7 @@ public class PlayerPanel extends JPanel implements GameConstants {
 
 		controlPanel = Box.createVerticalBox();
 		controlPanel.add(nameLbl);
+		controlPanel.add(Box.createVerticalStrut(5));
 		controlPanel.add(draw);
 		controlPanel.add(Box.createVerticalStrut(15));
 		controlPanel.add(sayUNO);
