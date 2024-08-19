@@ -30,7 +30,7 @@ public class InfoPanel extends JPanel {
 		error = "";
 		text = "O jogo começou";
 		
-		helpButton = new RoundedJButton("Ajuda", new UNOConstants().getBLUE(""), 20);
+		helpButton = new RoundedJButton("Ajuda", new Color(79, 129, 189), 20);
 		helpButton.setFocusable(false);
 		helpButton.addActionListener(e -> showHelpDialog());
 		add(helpButton);
