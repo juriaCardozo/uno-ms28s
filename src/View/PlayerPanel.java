@@ -3,6 +3,7 @@ package View;
 Code created by Josh Braza 
 */
 
+import Components.RoundedJButton;
 import GameModel.Player;
 import Interfaces.GameConstants;
 import java.awt.Color;
@@ -16,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-public class PlayerPanel extends JPanel implements GameConstants {
+public final class PlayerPanel extends JPanel implements GameConstants {
 
 	private Player player;
 	private String name;
@@ -58,7 +59,7 @@ public class PlayerPanel extends JPanel implements GameConstants {
 	}
 
 	@SuppressWarnings("static-access")
-	public final void setCards() {
+	public void setCards() {
 		cardHolder.removeAll();
 
 		// Origin point at the center
@@ -81,7 +82,7 @@ public class PlayerPanel extends JPanel implements GameConstants {
 		return player;
 	}
 
-	public final void setPlayer(Player player) {
+	public void setPlayer(Player player) {
 		this.player = player;
 		setPlayerName(player.getName());
 	}
@@ -133,14 +134,14 @@ public class PlayerPanel extends JPanel implements GameConstants {
 		}
 	}
 	
-	public final void enableButtons() {
+	public void enableButtons() {
 		draw.setEnabled(player.isMyTurn());
 		sayUNO.setEnabled(player.isMyTurn());
 	}
 	
 	class MyButtonHandler implements ActionListener{
 		
-        @Override
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 			if(player.isMyTurn()){

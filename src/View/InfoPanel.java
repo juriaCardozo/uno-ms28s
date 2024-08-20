@@ -1,10 +1,11 @@
 package View;
+import Components.RoundedJButton;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import javax.swing.JPanel;
+import javax.swing.*;
 /*
 Code created by Josh Braza
 */
@@ -18,18 +19,41 @@ public class InfoPanel extends JPanel {
 	private int pc = 0;
 	private int rest = 0;
 
-	private int xPos;
+	private final JButton helpButton;
 	
 	public InfoPanel(){
-		setPreferredSize(new Dimension(275,200));
+		setPreferredSize(new Dimension(275,250));
 		setOpaque(false);
 		error = "";
 		text = "O jogo começou";
 		
+		helpButton = new RoundedJButton("Ajuda", new Color(79, 129, 189), 20);
+		helpButton.setFocusable(false);
+		helpButton.addActionListener(e -> showHelpDialog());
+		add(helpButton);
+		setLayout(null);
+
 		updateText(text);
 	}
-	
-    @Override
+
+	private void showHelpDialog() {
+
+		String regras = """
+			Regras do Uno:
+				1. Cada jogador começa com 7 cartas.
+				2. O objetivo é ser o primeiro a se livrar de todas as suas cartas.
+				3. No seu turno, você pode jogar uma carta que corresponda à cor ou ao número da carta no centro do jogo.
+				4. Se você não puder jogar uma carta, deve comprar uma do baralho.
+				5. Existem cartas especiais que podem mudar a cor ou pular a vez do próximo jogador.
+				6. Quando tiver duas cartas na mão, clique no botão de dizer "UNO!" e jogue sua carta.
+				7. Se um jogador não disser "UNO!", ele deve comprar duas cartas como penalidade.
+				8. O jogo continua até que um jogador fique sem cartas.
+		""";
+
+		JOptionPane.showMessageDialog(this, regras, "Regras do Jogo", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		panelCenter = getWidth()/2;
@@ -37,6 +61,12 @@ public class InfoPanel extends JPanel {
 		printMessage(g);
 		printError(g);
 		printDetail(g);
+
+		int buttonWidth = 120;
+		int buttonHeight = 30;
+		int xPos = panelCenter - buttonWidth / 2;
+		int yPos = 200;
+		helpButton.setBounds(xPos, yPos, buttonWidth, buttonHeight);
 	}
 
 	private void printError(Graphics g) {
@@ -45,7 +75,7 @@ public class InfoPanel extends JPanel {
 			
 			//Determine the width of the word to position
 			FontMetrics fm = this.getFontMetrics(adjustedFont);
-			xPos = panelCenter - fm.stringWidth(error) / 2;
+			int xPos = panelCenter - fm.stringWidth(error) / 2;
 			
 			g.setFont(adjustedFont);
 			g.setColor(Color.red);
@@ -60,7 +90,7 @@ public class InfoPanel extends JPanel {
 		
 		//Determine the width of the word to position
 		FontMetrics fm = this.getFontMetrics(adjustedFont);
-		xPos = panelCenter - fm.stringWidth(text) / 2;
+		int xPos = panelCenter - fm.stringWidth(text) / 2;
 		
 		g.setFont(adjustedFont);
 		g.setColor(new Color(228,108,10));
@@ -73,11 +103,11 @@ public class InfoPanel extends JPanel {
 		g.setColor(new Color(127,127,127));
 		
 		//Determine the width of the word to position
-		text = "Cartas Jogadas";
-		xPos = panelCenter - fm.stringWidth(text) / 2;
+		String text = "Cartas Jogadas";
+		int xPos = panelCenter - fm.stringWidth(text) / 2;
 		
 		g.setFont(adjustedFont);
-		g.drawString(text, xPos, 120);
+		g.drawString(text, xPos, 115);
 		
 		text = "Cartas restantes: " + rest;
 		xPos = panelCenter - fm.stringWidth(text) / 2;
@@ -97,7 +127,7 @@ public class InfoPanel extends JPanel {
 		//g.drawString(text, xPos, 190);
 	}
 
-	public final void updateText(String newText) {
+	public void updateText(String newText) {
 		text = newText;
 	}
 	

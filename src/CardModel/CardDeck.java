@@ -1,6 +1,6 @@
 package CardModel;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
 import Interfaces.GameConstants;
 import ServerController.MyCardListener;
@@ -11,7 +11,7 @@ import java.util.LinkedList;
 /**
  * This Class contains standard 108-Card stack
  */
-public final class CardDeck implements GameConstants {
+public class CardDeck implements GameConstants {
 	private final LinkedList<UNOCard> UNOcards;
 	
 	public CardDeck(){

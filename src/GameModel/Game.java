@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 
 public class Game implements GameConstants {
 
-	private final Player[] players;
+	private final  Player[] players;
 	private boolean isOver;
 	private final int GAMEMODE;
 
@@ -82,10 +82,10 @@ public class Game implements GameConstants {
 			backgroundMusicClip.start();
 		} catch (FileNotFoundException e) {
 			// Arquivo não encontrado
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 			// Outras exceções
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -118,10 +118,10 @@ public class Game implements GameConstants {
                         });
                     } catch (FileNotFoundException e) {
                         // Lide com o erro de arquivo não encontrado
-						System.out.println(e.getMessage());
+                        e.printStackTrace();
                     } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                         // Lide com outras exceções
-						System.out.println(e.getMessage());
+                        e.printStackTrace();
                     }
                 }).start();
 	}
@@ -148,10 +148,10 @@ public class Game implements GameConstants {
                         });
                     } catch (FileNotFoundException e) {
                         // Lide com o erro de arquivo não encontrado
-						System.out.println(e.getMessage());
+                        e.printStackTrace();
                     } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                         // Lide com outras exceções
-						System.out.println(e.getMessage());
+                        e.printStackTrace();
                     }
                 }).start();
 	}

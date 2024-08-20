@@ -6,12 +6,14 @@ import CardModel.WildCard;
 import GameModel.Game;
 import GameModel.Player;
 import Interfaces.GameConstants;
+import Interfaces.UNOConstants;
 import View.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 public class Server implements GameConstants {
 	private Game game;
@@ -27,7 +29,7 @@ public class Server implements GameConstants {
 		startGame();
 	}
 
-	public final void startGame() {
+	public void startGame() {
 		game = new Game(mode);
 		playedCards = new Stack<>();
 
@@ -255,18 +257,31 @@ public class Server implements GameConstants {
 	}
 
 	private void setGameTheme() {
-		Color corFundoModais = new Color(30,36,40);
 		Color corTexto = Color.white;
+		Color corFundoModais = new Color(30,36,40);
+		Color selectedColor = new UNOConstants().getBLUE("padrao");
+		Font defaultFont = new Font("Arial", Font.BOLD, 14);
 
-		UIManager.put("OptionPane.background", corFundoModais); 					// Cor de fundo do diálogo
-		UIManager.put("Panel.background", corFundoModais);      					// Cor de fundo do painel
+		UIManager.put("Panel.background", corFundoModais);
+		UIManager.put("Panel.messageForeground", corTexto);
 
-		UIManager.put("Button.background", new Color(102, 178, 255));     	// Cor de fundo dos botões
-		UIManager.put("Button.foreground", Color.BLACK);                  			// Cor do texto nos botões
-		UIManager.put("Button.font", new Font("Arial", Font.BOLD, 14));	// Fonte do texto nos botões
+		UIManager.put("OptionPane.background", corFundoModais);
+		UIManager.put("OptionPane.messageForeground", corTexto);
 
-		UIManager.put("OptionPane.messageForeground", corTexto);        			// Cor do texto dos diálogos
-		UIManager.put("Panel.messageForeground", corTexto);        					// Cor do texto do painel
+		UIManager.put("Button.font", defaultFont);
+		UIManager.put("Button.foreground", corTexto);
+		UIManager.put("Button.background", selectedColor);
+		UIManager.put("Button.border", new EmptyBorder(new JButton().getBorder().getBorderInsets(new JButton())));
 
+		UIManager.put("TextField.background", Color.WHITE);
+		UIManager.put("TextField.font", new Font("Helvetica", Font.PLAIN, 16));
+		UIManager.put("TextField.border", BorderFactory.createLineBorder(Color.WHITE, 4));
+
+		UIManager.put("ComboBox.font", defaultFont);
+		UIManager.put("ComboBox.background", Color.WHITE);
+		UIManager.put("ComboBox.foreground", Color.BLACK);
+		UIManager.put("ComboBox.selectionForeground", corTexto);
+		UIManager.put("ComboBox.selectionBackground", selectedColor);
+		UIManager.put("ComboBox.border", BorderFactory.createLineBorder(selectedColor, 2));
 	}
 }

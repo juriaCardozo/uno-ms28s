@@ -8,6 +8,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import CardModel.WildCard;
+import Components.RoundedBorderJPanel;
 import Interfaces.GameConstants;
 
 public class TablePanel extends JPanel implements GameConstants {
@@ -20,7 +21,7 @@ public class TablePanel extends JPanel implements GameConstants {
 		setLayout(new GridBagLayout());
 		
 		topCard = firstCard;
-		table = new RoundedBorderJPanel(firstCard.getColor(), 40);
+		table = new RoundedBorderJPanel(40);
 
 		setTable();
 		setComponents();

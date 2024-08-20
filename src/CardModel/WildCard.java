@@ -1,6 +1,6 @@
 package CardModel;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
 import View.UNOCard;
 import java.awt.Color;

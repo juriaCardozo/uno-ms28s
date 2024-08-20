@@ -1,4 +1,4 @@
-package View;
+package Components;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,8 +9,7 @@ public class RoundedBorderJPanel extends JPanel {
     private Color backgroundColor;
     private final int radius;
 
-    public RoundedBorderJPanel(Color backgroundColor, int radius) {
-        this.backgroundColor = backgroundColor;
+    public RoundedBorderJPanel(int radius) {
         this.radius = radius;
         setOpaque(false);
     }
