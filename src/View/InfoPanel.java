@@ -1,18 +1,15 @@
 package View;
 import Components.RoundedJButton;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-
 import javax.swing.*;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
 
-@SuppressWarnings("serial")
 public class InfoPanel extends JPanel {
 	private String error;
 	private String text;
@@ -56,6 +53,7 @@ public class InfoPanel extends JPanel {
 		JOptionPane.showMessageDialog(this, regras, "Regras do Jogo", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		panelCenter = getWidth()/2;
@@ -88,7 +86,7 @@ public class InfoPanel extends JPanel {
 	}
 
 	private void printMessage(Graphics g) {
-		Font adjustedFont = new Font("Calibri", Font.BOLD,	25);	
+		Font adjustedFont = new Font("Calibri", Font.BOLD,	25);
 		
 		//Determine the width of the word to position
 		FontMetrics fm = this.getFontMetrics(adjustedFont);
@@ -96,11 +94,11 @@ public class InfoPanel extends JPanel {
 		
 		g.setFont(adjustedFont);
 		g.setColor(new Color(228,108,10));
-		g.drawString(text, xPos, 75);		
+		g.drawString(text, xPos, 75);
 	}
 	
 	private void printDetail(Graphics g){
-		Font adjustedFont = new Font("Calibri", Font.BOLD,	25);	
+		Font adjustedFont = new Font("Calibri", Font.BOLD,	25);
 		FontMetrics fm = this.getFontMetrics(adjustedFont);
 		g.setColor(new Color(127,127,127));
 		

@@ -1,17 +1,14 @@
 package View;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
 
+import Interfaces.GameConstants;
+import ServerController.Observer;
+import ServerController.Server;
 import javax.swing.JFrame;
 
-import Interfaces.GameConstants;
-import ServerController.Server;
 
-import ServerController.Observer;
-
-
-@SuppressWarnings("serial")
 public class MainFrame extends JFrame implements GameConstants {
 	
 	private Session mainPanel;
@@ -26,7 +23,7 @@ public class MainFrame extends JFrame implements GameConstants {
 		return observer;
 	}
 	
-	public MainFrame(Observer observer){	
+	public MainFrame(Observer observer){
 		setObserver(observer);
 		startGame();
 	}

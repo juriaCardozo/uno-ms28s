@@ -2,9 +2,8 @@ package GameModel;
 /*
 Code created by Josh Braza 
 */
-import java.util.LinkedList;
-
 import View.UNOCard;
+import java.util.LinkedList;
 
 public class Player {
 	
@@ -16,12 +15,12 @@ public class Player {
 	private int playedCards = 0;
 	
 	public Player(){
-		myCards = new LinkedList<UNOCard>();
+		myCards = new LinkedList<>();
 	}
 	
 	public Player(String player){
 		setName(player);
-		myCards = new LinkedList<UNOCard>();
+		myCards = new LinkedList<>();
 	}
 	
 	public void setName(String newName){
@@ -32,7 +31,6 @@ public class Player {
 		return this.name;
 	}
 	public void obtainCard(UNOCard card){
-		System.out.println("Player: " + name + " obtained card: " + card.toString());
 		card.setShowValue(isMyTurn);
 		myCards.add(card);
 	}
@@ -50,7 +48,6 @@ public class Player {
 	}
 	
 	public void removeCard(UNOCard thisCard){
-		System.out.println("Player: " + name + " played card: " + thisCard.toString());
 		myCards.remove(thisCard);
 		playedCards++;
 	}
@@ -79,7 +76,6 @@ public class Player {
 	}
 	
 	public void saysUNO(){
-		System.out.println("\nPlayer: " + name + " said UNO!");
 		saidUNO = true;
 	}
 	
@@ -88,6 +84,6 @@ public class Player {
 	}
 	
 	public void setCards(){
-		myCards = new LinkedList<UNOCard>();
+		myCards = new LinkedList<>();
 	}
 }
