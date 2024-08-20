@@ -180,7 +180,7 @@ public class Game implements GameConstants {
 
 	public void removePlayedCard(UNOCard playedCard) {
 
-		for (Player p : players) {
+ 		for (Player p : players) {
 			if (p.hasCard(playedCard)){
 				p.removeCard(playedCard);
 				playCardSound();
@@ -242,12 +242,14 @@ public class Game implements GameConstants {
 	}
 
 	//response whose turn it is
+
 	public void whoseTurn() {
 
 		for (Player p : players) {
 			if (p.isMyTurn()){
 				infoPanel.updateText("Vez de " + p.getName());
-				System.out.println("Vez de " + p.getName());
+				System.out.println("\n=================================================");
+				System.out.println("\nVez de " + p.getName());
 			}
 		}
 		infoPanel.setDetail(playedCardsSize(), remainingCards());

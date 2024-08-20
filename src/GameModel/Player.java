@@ -32,6 +32,7 @@ public class Player {
 		return this.name;
 	}
 	public void obtainCard(UNOCard card){
+		System.out.println("Player: " + name + " obtained card: " + card.toString());
 		card.setShowValue(isMyTurn);
 		myCards.add(card);
 	}
@@ -49,6 +50,7 @@ public class Player {
 	}
 	
 	public void removeCard(UNOCard thisCard){
+		System.out.println("Player: " + name + " played card: " + thisCard.toString());
 		myCards.remove(thisCard);
 		playedCards++;
 	}
@@ -77,6 +79,7 @@ public class Player {
 	}
 	
 	public void saysUNO(){
+		System.out.println("\nPlayer: " + name + " said UNO!");
 		saidUNO = true;
 	}
 	

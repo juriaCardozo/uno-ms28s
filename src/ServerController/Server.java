@@ -136,6 +136,9 @@ public class Server implements GameConstants {
 		game.switchTurn();
 		clickedCard.setShowValue(true);
 		session.updatePanel(clickedCard);
+
+		// printPlayedCards(clickedCard);
+
 		checkResults();
 	}
 
@@ -233,6 +236,10 @@ public class Server implements GameConstants {
 
 	public UNOCard peekTopCard() {
 		return playedCards.peek();
+	}
+
+	public void printPlayedCards(UNOCard clicArd) {
+		System.out.println(clicArd.toString()); 
 	}
 
 	public void submitSaidUNO() {
