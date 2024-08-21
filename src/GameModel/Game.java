@@ -44,7 +44,7 @@ public class Game implements GameConstants {
 		Player player1 = (GAMEMODE==vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);
 
-		playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
+		controlBackgroundMusic();
 
 		player2.toggleTurn();				//Initially, player2's turn
 
@@ -90,9 +90,17 @@ public class Game implements GameConstants {
 	}
 
 	private void stopBackgroundMusic() {
+		backgroundMusicClip.stop();
+		backgroundMusicClip.close();
+	}
+
+	public boolean controlBackgroundMusic() {
 		if (backgroundMusicClip != null && backgroundMusicClip.isRunning()) {
-			backgroundMusicClip.stop();
-			backgroundMusicClip.close();
+			stopBackgroundMusic();
+			return false;
+		} else {
+			playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
+			return true;
 		}
 	}
 
