@@ -92,9 +92,9 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 		
 		//Value in the corner
 		defaultFont = new Font("Helvetica", Font.ITALIC, cardWidth/5);
-		fm = this.getFontMetrics(defaultFont);
-		StringWidth = fm.stringWidth(value)/2;
-		FontHeight = defaultFont.getSize()*1/3;
+		//fm = this.getFontMetrics(defaultFont);
+		// StringWidth = fm.stringWidth(value)/2;
+		// FontHeight = defaultFont.getSize()*1/3;
 		
 		g.setColor(Color.white);
 		g.setFont(defaultFont);

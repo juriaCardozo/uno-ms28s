@@ -1,6 +1,6 @@
 package GameModel;
 /*
-Code created by Josh Braza 
+Code created by Josh Braza
 */
 import View.UNOCard;
 import java.util.LinkedList;
@@ -10,7 +10,7 @@ public class Player {
 	private String name = null;
 	private boolean isMyTurn = false;
 	private boolean saidUNO = false;
-	private LinkedList<UNOCard> myCards;
+	private final LinkedList<UNOCard> myCards;
 	
 	private int playedCards = 0;
 	
@@ -84,6 +84,6 @@ public class Player {
 	}
 	
 	public void setCards(){
-		myCards = new LinkedList<>();
+		myCards.clear();
 	}
 }
