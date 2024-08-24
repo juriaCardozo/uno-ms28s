@@ -20,7 +20,12 @@ public class Session extends JPanel {
 	private final Game game;
 
 	private JButton audioControl;
-	private MyButtonHandler handler;
+	private JButton volumeUp;
+	private JButton volumeDown;
+
+	private AudioControlHandler audioControlHandler;
+	private VolumeUpHandler volumeUpHandler;
+	private VolumeDownHandler volumeDownHandler;
 
 	private final String AUDIO_ON_ICON_PATH = "src/Icons/audio_on_icon.png";
 	private final String AUDIO_OFF_ICON_PATH = "src/Icons/audio_off_icon.png";
@@ -41,17 +46,31 @@ public class Session extends JPanel {
 		add(table, BorderLayout.EAST);
 		add(player2, BorderLayout.SOUTH);
 
+		setVolumeUp();
 		setAudioControl();
+		setVolumeDown();
 
 		JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		topPanel.setOpaque(false);
+		topPanel.add(volumeUp);
 		topPanel.add(audioControl);
+		topPanel.add(volumeDown);
 		add(topPanel, BorderLayout.CENTER);
 
-		handler = new MyButtonHandler();
+		audioControlHandler = new AudioControlHandler();
 		audioControl.addActionListener(BUTTONLISTENER);
-		audioControl.addActionListener(handler);
+		audioControl.addActionListener(audioControlHandler);
 		audioControl.setEnabled(true);
+
+		volumeUpHandler = new VolumeUpHandler();
+		volumeUp.addActionListener(BUTTONLISTENER);
+		volumeUp.addActionListener(volumeUpHandler);
+		volumeUp.setEnabled(true);
+
+		volumeDownHandler = new VolumeDownHandler();
+		volumeDown.addActionListener(BUTTONLISTENER);
+		volumeDown.addActionListener(volumeDownHandler);
+		volumeDown.setEnabled(true);
 	}
 
 	private void setPlayers() {
@@ -61,11 +80,8 @@ public class Session extends JPanel {
 
 	private void setAudioControl() {
 		audioControl = new JButton();
-
 		setAudioButtonIcon(AUDIO_ON_ICON_PATH);
-
-		audioControl.setBackground(Color.WHITE);
-		audioControl.setFocusable(false);
+		setButtonStyle(audioControl);
 	}
 
 	private void setAudioButtonIcon(String iconPath) {
@@ -74,6 +90,24 @@ public class Session extends JPanel {
 						.getScaledInstance(18, 18, SCALE_SMOOTH));
 
 		audioControl.setIcon(audioIcon);
+	}
+
+	private void setVolumeUp() {
+		volumeUp = new JButton("+");
+		setButtonStyle(volumeUp);
+	}
+
+	private void setVolumeDown() {
+		volumeDown = new JButton("-");
+		setButtonStyle(volumeDown);
+	}
+
+	private void setButtonStyle(JButton botao) {
+		botao.setBackground(Color.WHITE);
+		botao.setForeground(Color.BLACK);
+		botao.setFont(new Font("Arial", Font.BOLD, 16));
+		botao.setPreferredSize(new Dimension(43, 30));
+		botao.setFocusable(false);
 	}
 
 	public void refreshPanel(){
@@ -97,7 +131,21 @@ public class Session extends JPanel {
 		super.paintComponent(g);
 	}
 
-	class MyButtonHandler implements ActionListener {
+	class VolumeDownHandler implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			volumeDown.setEnabled(game.volumeDown());
+			volumeUp.setEnabled(true);
+		}
+	}
+
+	class VolumeUpHandler implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			volumeUp.setEnabled(game.volumeUp());
+			volumeDown.setEnabled(true);
+		}
+	}
+
+	class AudioControlHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			boolean isBackgroundMusicOn = game.controlBackgroundMusic();
 

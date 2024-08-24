@@ -27,6 +27,9 @@ public class Game implements GameConstants {
 
 	private Clip backgroundMusicClip;
 
+	private FloatControl gainControl;
+	private Float volume;
+
 	public Game(int mode){
 
 		GAMEMODE = mode;
@@ -70,8 +73,10 @@ public class Game implements GameConstants {
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 
-			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-10.0f);
+			if (volume == null) volume = -20f;
+
+			gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(volume);
 
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 
@@ -87,6 +92,22 @@ public class Game implements GameConstants {
 			// Outras exceções
 			e.printStackTrace();
 		}
+	}
+
+	public boolean volumeUp() {
+		if (volume == 0f) return false;
+
+		gainControl.setValue(volume += 10);
+
+		return volume != 0f;
+	}
+
+	public boolean volumeDown() {
+		if (volume == -40f) return false;
+
+		gainControl.setValue(volume -= 10);
+
+		return volume != -40f;
 	}
 
 	private void stopBackgroundMusic() {
