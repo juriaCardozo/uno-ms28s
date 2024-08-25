@@ -2,15 +2,13 @@ package View;
 /*
 Code created by Josh Braza
 */
+import GameModel.Game;
+import static Interfaces.GameConstants.BUTTONLISTENER;
 import java.awt.*;
+import static java.awt.Image.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-
-import GameModel.Game;
-
-import static Interfaces.GameConstants.BUTTONLISTENER;
-import static java.awt.Image.*;
 
 public class Session extends JPanel {
 	private PlayerPanel player1;
@@ -23,9 +21,9 @@ public class Session extends JPanel {
 	private JButton volumeUp;
 	private JButton volumeDown;
 
-	private AudioControlHandler audioControlHandler;
-	private VolumeUpHandler volumeUpHandler;
-	private VolumeDownHandler volumeDownHandler;
+	private final AudioControlHandler audioControlHandler;
+	private final VolumeUpHandler volumeUpHandler;
+	private final VolumeDownHandler volumeDownHandler;
 
 	private final String AUDIO_ON_ICON_PATH = "src/Icons/audio_on_icon.png";
 	private final String AUDIO_OFF_ICON_PATH = "src/Icons/audio_off_icon.png";
@@ -132,6 +130,7 @@ public class Session extends JPanel {
 	}
 
 	class VolumeDownHandler implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			volumeDown.setEnabled(game.volumeDown());
 			volumeUp.setEnabled(true);
@@ -139,6 +138,7 @@ public class Session extends JPanel {
 	}
 
 	class VolumeUpHandler implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			volumeUp.setEnabled(game.volumeUp());
 			volumeDown.setEnabled(true);
@@ -146,6 +146,7 @@ public class Session extends JPanel {
 	}
 
 	class AudioControlHandler implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			boolean isBackgroundMusicOn = game.controlBackgroundMusic();
 

@@ -50,7 +50,7 @@ public class CardDeck implements GameConstants {
 	}
 	
 	//Cards have MouseListener
-	public void addCardListener(MyCardListener listener){
+	public final void addCardListener(MyCardListener listener){
 		for(UNOCard card: UNOcards)
 			card.addMouseListener(listener);
 	}

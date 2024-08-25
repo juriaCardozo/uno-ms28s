@@ -193,26 +193,37 @@ public class Game implements GameConstants {
 		return dealer.getCard();
 	}
 
+	//Modularização na implementação caso o jogador não diga uno quando estiver com 2 cartas
 	public void removePlayedCard(UNOCard playedCard) {
-
-		for (Player p : players) {
-			if (p.hasCard(playedCard)){
-				p.removeCard(playedCard);
+		for (Player player : players) {
+			if (player.hasCard(playedCard)) {
+				player.removeCard(playedCard);
 				playCardSound();
-
-				if (p.getTotalCards() == 1 && !p.getSaidUNO()) {
-					sayUNO(p);
-				}else if(p.getTotalCards()>2){
-					p.setSaidUNOFalse();
-				}
+				handleUNOState(player);
 			}
 		}
 	}
+	
+	private void handleUNOState(Player player) {
+		if (player.getTotalCards() == 1 && !player.getSaidUNO()) {
+			applyUNOConsequences(player);
+		} else if (player.getTotalCards() > 2) {
+			player.setSaidUNOFalse();
+		}
+	}
+	
+	private void applyUNOConsequences(Player player) {
+		infoPanel.setError(player.getName() + " esqueceu de dizer UNO!");
+		player.obtainCard(getCard());
+		player.obtainCard(getCard());
+	}
+	
 
-	private void sayUNO(Player p) {
-		infoPanel.setError(p.getName() + " Esqueceu de dizer UNO!");
-		p.obtainCard(getCard());
-		p.obtainCard(getCard());
+	private void sayUNO(Player player) {
+		System.out.println(player.getName() + "Jogador esqueceu de dizer uno");
+		infoPanel.setError(player.getName() + " Esqueceu de dizer UNO!");
+		player.obtainCard(getCard());
+		player.obtainCard(getCard());
 	}
 
 	//give player a card
