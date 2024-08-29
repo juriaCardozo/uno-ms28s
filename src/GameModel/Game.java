@@ -228,19 +228,29 @@ public class Game implements GameConstants {
 
 	//give player a card
 	public void drawCard(UNOCard topCard) {
-
 		boolean canPlay = false;
 
 		for (Player p : players) {
 			if (p.isMyTurn()) {
 				UNOCard newCard = getCard();
 				p.obtainCard(newCard);
-				canPlay = canPlay(topCard, newCard);
-
-				if(pc.isMyTurn() && canPlay){
-					playPC(topCard);
-					canPlay = true;
+	
+				if (GAMEMODE == MANUAL) {
+					canPlay = canPlay(topCard, newCard);
+	
+					if (!canPlay) {
+						switchTurn();
+					}
+				} else if (pc.isMyTurn()) {
+					canPlay = canPlay(topCard, newCard);
+	
+					if (canPlay) {
+						playPC(topCard);
+					} else {
+						switchTurn();
+					}
 				}
+				break;
 			}
 		}
 
