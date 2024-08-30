@@ -41,7 +41,7 @@ public final class PlayerPanel extends JPanel implements GameConstants {
 
 		// Set
 		setCards();
-		setControlPanel();
+		setControlPanel(newPlayer);
 
 		myLayout.add(cardHolder);
 		myLayout.add(Box.createHorizontalStrut(40));
@@ -52,10 +52,11 @@ public final class PlayerPanel extends JPanel implements GameConstants {
 		handler = new MyButtonHandler();
 		draw.addActionListener(BUTTONLISTENER);
 		draw.addActionListener(handler);
-		
+
 		sayUNO.addActionListener(BUTTONLISTENER);
 		sayUNO.addActionListener(handler);
 		enableButtons();
+
 	}
 
 	@SuppressWarnings("static-access")
@@ -91,7 +92,7 @@ public final class PlayerPanel extends JPanel implements GameConstants {
 		this.name = playername;
 	}
 
-	private void setControlPanel() {
+	private void setControlPanel(Player newPlayer) {
 		draw = new RoundedJButton("Comprar", new Color(79, 129, 189), 20);
 		sayUNO = new RoundedJButton("Dizer UNO!", new Color(149, 55, 53), 20);
 		nameLbl = new JLabel(name);
@@ -112,6 +113,11 @@ public final class PlayerPanel extends JPanel implements GameConstants {
 		controlPanel.add(draw);
 		controlPanel.add(Box.createVerticalStrut(15));
 		controlPanel.add(sayUNO);
+
+		if (newPlayer.isPC()) {
+			draw.setVisible(false);
+			sayUNO.setVisible(false);
+		}
 	}
 
 	private int calculateOffset(int width, int totalCards) {
@@ -133,22 +139,22 @@ public final class PlayerPanel extends JPanel implements GameConstants {
 			return p;
 		}
 	}
-	
+
 	public void enableButtons() {
 		draw.setEnabled(player.isMyTurn());
 		sayUNO.setEnabled(player.isMyTurn());
 	}
-	
-	class MyButtonHandler implements ActionListener{
-		
+
+	class MyButtonHandler implements ActionListener {
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			if(player.isMyTurn()){
-				
-				if(e.getSource()==draw)
+
+			if (player.isMyTurn()) {
+
+				if (e.getSource() == draw)
 					BUTTONLISTENER.drawCard();
-				else if(e.getSource()==sayUNO)
+				else if (e.getSource() == sayUNO)
 					BUTTONLISTENER.sayUNO();
 			}
 		}

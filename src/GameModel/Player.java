@@ -11,6 +11,8 @@ public class Player {
 	private boolean isMyTurn = false;
 	private boolean saidUNO = false;
 	private final LinkedList<UNOCard> myCards;
+	private boolean isPC = false;
+
 	
 	private int playedCards = 0;
 	
@@ -30,6 +32,15 @@ public class Player {
 	public String getName(){
 		return this.name;
 	}
+
+	public void setPC(boolean isPC){
+		this.isPC = isPC;
+	}
+
+	public boolean isPC(){
+		return isPC;
+	}
+	
 	public void obtainCard(UNOCard card){
 		card.setShowValue(isMyTurn);
 		myCards.add(card);

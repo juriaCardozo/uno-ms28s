@@ -15,6 +15,7 @@ public class PC extends Player implements GameConstants {
 
 	public PC() {
 		setName("PC");
+		setPC(true);
 		super.setCards();
 	}
 
