@@ -97,4 +97,8 @@ public class Player {
 	public void setCards(){
 		myCards.clear();
 	}
+
+	public LinkedList<UNOCard> getCards() {
+		return myCards;
+	}
 }
