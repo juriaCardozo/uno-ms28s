@@ -4,13 +4,10 @@ Code created by Josh Braza
 */
 
 import CardModel.*;
+import GameModel.Audio.AudioManager;
 import Interfaces.GameConstants;
 import View.UNOCard;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Stack;
-import javax.sound.sampled.*;
 import javax.swing.JOptionPane;
 
 //import static Interfaces.UNOConstants.WILD;
@@ -25,14 +22,12 @@ public class Game implements GameConstants {
 	private final Dealer dealer;
 	private final Stack<UNOCard> cardStack;
 
-	private Clip backgroundMusicClip;
-
-	private FloatControl gainControl;
-	private Float volume;
+	private final AudioManager audioManager;
 
 	public Game(int mode){
 
 		GAMEMODE = mode;
+		audioManager = new AudioManager();
 		//Create players
 		String name = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 1:",
 				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE) : "PC";
@@ -61,128 +56,31 @@ public class Game implements GameConstants {
 		isOver = false;
 	}
 
-	private void playBackgroundMusic(String audioFilePath) { //som de fundo
-		try {
-			File audioFile = new File(audioFilePath);
-			if (!audioFile.exists()) {
-				throw new FileNotFoundException("O arquivo de áudio não foi encontrado: " + audioFilePath);
-			}
-
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioInputStream);
-
-			if (volume == null) volume = -20f;
-
-			gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(volume);
-
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-			clip.start();
-
-			backgroundMusicClip = clip;
-			backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
-			backgroundMusicClip.start();
-		} catch (FileNotFoundException e) {
-			// Arquivo não encontrado
-			e.printStackTrace();
-		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-			// Outras exceções
-			e.printStackTrace();
-		}
-	}
-
 	public boolean volumeUp() {
-		if (volume == 0f) return false;
-
-		gainControl.setValue(volume += 10);
-
-		return volume != 0f;
+		return audioManager.volumeUp();
 	}
 
 	public boolean volumeDown() {
-		if (volume == -40f) return false;
-
-		gainControl.setValue(volume -= 10);
-
-		return volume != -40f;
+		return audioManager.volumeDown();
 	}
 
-	private void stopBackgroundMusic() {
-		backgroundMusicClip.stop();
-		backgroundMusicClip.close();
-	}
-
-	public boolean controlBackgroundMusic() {
-		if (backgroundMusicClip != null && backgroundMusicClip.isRunning()) {
-			stopBackgroundMusic();
+	public final boolean controlBackgroundMusic() {
+		if(audioManager.isPlaying()){
+			audioManager.stopBackgroundMusic();
 			return false;
-		} else {
-			playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
+		}
+		else{
+			audioManager.playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
 			return true;
 		}
 	}
 
 	private void playAudio(String audioFilePath) { //pescar carta
-		new Thread(() -> {
-                    try {
-                        File audioFile = new File(audioFilePath);
-                        if (!audioFile.exists()) {
-                            throw new FileNotFoundException("O arquivo de áudio não foi encontrado: " + audioFilePath);
-                        }
-                        
-                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-                        
-                        Clip clip = AudioSystem.getClip();
-                        clip.open(audioInputStream);
-                        
-                        clip.start();
-                        
-                        clip.addLineListener((LineEvent event) -> {
-                            if (event.getType() == LineEvent.Type.STOP) {
-                                clip.close();
-                            }
-                        });
-                    } catch (FileNotFoundException e) {
-                        // Lide com o erro de arquivo não encontrado
-                        e.printStackTrace();
-                    } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-                        // Lide com outras exceções
-                        e.printStackTrace();
-                    }
-                }).start();
+		audioManager.playSoundEffect(audioFilePath);
 	}
 
 	private void playCardSound() { //jogar carta
-		new Thread(() -> {
-                    try {
-                        File audioFile = new File("src/Sounds/depositphotos_414403158-track-short-recording-footstep-dry-grass.wav");
-                        if (!audioFile.exists()) {
-                            throw new FileNotFoundException("O arquivo de áudio não foi encontrado: " + audioFile.getPath());
-                        }
-                        
-                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
-                        
-                        Clip clip = AudioSystem.getClip();
-                        clip.open(audioInputStream);
-                        
-                        clip.start();
-                        
-                        clip.addLineListener((LineEvent event) -> {
-                            if (event.getType() == LineEvent.Type.STOP) {
-                                clip.close();
-                            }
-                        });
-                    } catch (FileNotFoundException e) {
-                        // Lide com o erro de arquivo não encontrado
-                        e.printStackTrace();
-                    } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-                        // Lide com outras exceções
-                        e.printStackTrace();
-                    }
-                }).start();
+		playAudio("src/Sounds/depositphotos_414403158-track-short-recording-footstep-dry-grass.wav");
 	}
 
 	public Player[] getPlayers() {
@@ -295,14 +193,14 @@ public class Game implements GameConstants {
 
 		if(cardStack.isEmpty()){
 			isOver= true;
-			stopBackgroundMusic();//parar de tocar a musica de fundo
+			audioManager.stopBackgroundMusic();//parar de tocar a musica de fundo
 			return isOver;
 		}
 
 		for (Player p : players) {
 			if (!p.hasCards()) {
 				isOver = true;
-				stopBackgroundMusic();//parar de tocar a musica de fundo
+				audioManager.stopBackgroundMusic();//parar de tocar a musica de fundo
 				break;
 			}
 		}
