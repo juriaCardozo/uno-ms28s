@@ -126,17 +126,23 @@ public class Server implements GameConstants {
 		playedCards.add(clickedCard);
 		game.removePlayedCard(clickedCard);
 
-		System.out.println("mudou de turno");
-		clickedCard.setShowValue(true);
-		session.updatePanel(clickedCard);
-		if (mode == vsPC && canPlay) {
+		boolean isActionCardOrVsPC = mode == vsPC || clickedCard.getType() == ACTION;
+
+		if (isActionCardOrVsPC || !checkResults()) {
 			game.switchTurn();
-		} else if ( clickedCard.getType() == ACTION) { //!
-			game.switchTurn();
-		} else if (!checkResults()) {
-			confirmNextPlayerTurn(clickedCard);
+			System.out.println("mudou de turno");
+
+			if (!isActionCardOrVsPC) {
+				confirmNextPlayerTurn(clickedCard);
+			}
 		}
 
+		clickedCard.setShowValue(true);
+		session.updatePanel(clickedCard);
+
+		if (isActionCardOrVsPC) {
+			checkResults();
+		}
 	}
 
 	// Check if the game is over
