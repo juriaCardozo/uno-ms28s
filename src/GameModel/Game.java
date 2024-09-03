@@ -4,10 +4,10 @@ Code created by Josh Braza
 */
 
 import CardModel.*;
-import GameModel.Audio.AudioManager;
+import GameModel.Managers.AudioManager;
+import GameModel.Managers.CardManager;
 import Interfaces.GameConstants;
 import View.UNOCard;
-import java.util.Stack;
 import javax.swing.JOptionPane;
 
 //import static Interfaces.UNOConstants.WILD;
@@ -19,9 +19,8 @@ public class Game implements GameConstants {
 	private final int GAMEMODE;
 
 	private PC pc;
-	private final Dealer dealer;
-	private final Stack<UNOCard> cardStack;
-
+	
+	private final CardManager cardManager;
 	private final AudioManager audioManager;
 
 	public Game(int mode){
@@ -48,10 +47,7 @@ public class Game implements GameConstants {
 
 		players = new Player[]{player1, player2};
 
-		//Create Dealer
-		dealer = new Dealer();
-		cardStack = dealer.shuffle();
-		dealer.spreadOut(players);
+		cardManager = new CardManager(players);
 
 		isOver = false;
 	}
@@ -88,16 +84,17 @@ public class Game implements GameConstants {
 	}
 
 	public UNOCard getCard() {
-		return dealer.getCard();
+		return cardManager.drawCard();
 	}
 
 	//Modularização na implementação caso o jogador não diga uno quando estiver com 2 cartas
 	public void removePlayedCard(UNOCard playedCard) {
-		for (Player player : players) {
-			if (player.hasCard(playedCard)) {
-				player.removeCard(playedCard);
-				playCardSound();
+		cardManager.removePlayedCard(playedCard);
+		playCardSound();
+		for(Player player : players){
+			if(player.isMyTurn()){
 				handleUNOState(player);
+				break;
 			}
 		}
 	}
@@ -176,6 +173,10 @@ public class Game implements GameConstants {
 	}
 
 	//response whose turn it is
+	public void drawwPlus(int times){
+		cardManager.drawPlus(times);
+	}
+
 	public void whoseTurn() {
 
 		for (Player p : players) {
@@ -191,7 +192,7 @@ public class Game implements GameConstants {
 	//return if the game is over
 	public boolean isOver() {
 
-		if(cardStack.isEmpty()){
+		if(cardManager.remainingCards() == 0){
 			isOver= true;
 			audioManager.stopBackgroundMusic();//parar de tocar a musica de fundo
 			return isOver;
@@ -209,7 +210,7 @@ public class Game implements GameConstants {
 	}
 
 	public int remainingCards() {
-		return cardStack.size();
+		return cardManager.remainingCards();
 	}
 
 	public int[] playedCardsSize() {

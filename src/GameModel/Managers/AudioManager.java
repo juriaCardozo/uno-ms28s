@@ -1,4 +1,4 @@
-package GameModel.Audio;
+package GameModel.Managers;
 
 import java.io.File;
 import java.io.IOException;
