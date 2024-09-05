@@ -15,29 +15,53 @@ public class AudioManager {
     }
 
     public void playBackgroundMusic(String filePath) {
-        try {
-            if (backgroundMusicClip != null && isPlaying) {
-                backgroundMusicClip.stop();
-            }
+        stopCurrentMusic();
+        backgroundMusicClip = loadClip(filePath);
+        if (backgroundMusicClip != null) {
+            configureAndPlayClip(backgroundMusicClip, true);
+        }
+    }
 
+    private void stopCurrentMusic() {
+        if (backgroundMusicClip != null && isPlaying) {
+            backgroundMusicClip.stop();
+        }
+    }
+
+    private Clip loadClip(String filePath) {
+        Clip clip = null;
+        try {
             File audioFile = new File(filePath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             AudioFormat format = audioStream.getFormat();
             DataLine.Info info = new DataLine.Info(Clip.class, format);
 
             if (!AudioSystem.isLineSupported(info)) {
-                System.out.println("Line not supported.");
-                return;
+                System.out.println("Line not supported for the format: " + format);
+                return null;
             }
 
-            backgroundMusicClip = (Clip) AudioSystem.getLine(info);
-            backgroundMusicClip.open(audioStream);
-            backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
-            volumeControl = (FloatControl) backgroundMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
-            isPlaying = true;
+            clip = (Clip) AudioSystem.getLine(info);
+            clip.open(audioStream);
+            audioStream.close();
+        } catch (UnsupportedAudioFileException e) {
+            System.err.println("Unsupported audio file format: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("IO error while loading audio file: " + e.getMessage());
+        } catch (LineUnavailableException e) {
+            System.err.println("Audio line unavailable: " + e.getMessage());
+        }
+        return clip;
+    }
 
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
+    private void configureAndPlayClip(Clip clip, boolean loop) {
+        if (clip != null) {
+            if (loop) {
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+            }
+            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            clip.start();
+            isPlaying = true;
         }
     }
 
@@ -77,23 +101,9 @@ public class AudioManager {
     }
 
     public void playSoundEffect(String filePath) {
-        try {
-            File audioFile = new File(filePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-            AudioFormat format = audioStream.getFormat();
-            DataLine.Info info = new DataLine.Info(Clip.class, format);
-
-            if (!AudioSystem.isLineSupported(info)) {
-                System.out.println("Line not supported.");
-                return;
-            }
-
-            Clip soundEffectClip = (Clip) AudioSystem.getLine(info);
-            soundEffectClip.open(audioStream);
+        Clip soundEffectClip = loadClip(filePath);
+        if (soundEffectClip != null) {
             soundEffectClip.start();
-            
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
         }
     }
 }
