@@ -26,7 +26,8 @@ public class Game implements GameConstants {
 	public Game(int mode){
 
 		GAMEMODE = mode;
-		audioManager = new AudioManager();
+		audioManager = AudioManager.getInstance();
+
 		//Create players
 		String name = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 1:",
 				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE) : "PC";
@@ -41,7 +42,7 @@ public class Game implements GameConstants {
 		Player player1 = (GAMEMODE==vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);
 
-		controlBackgroundMusic();
+		audioManager.controlBackgroundMusic();
 
 		player2.toggleTurn();				//Initially, player2's turn
 
@@ -50,25 +51,6 @@ public class Game implements GameConstants {
 		cardManager = new CardManager(players);
 
 		isOver = false;
-	}
-
-	public boolean volumeUp() {
-		return audioManager.volumeUp();
-	}
-
-	public boolean volumeDown() {
-		return audioManager.volumeDown();
-	}
-
-	public final boolean controlBackgroundMusic() {
-		if(audioManager.isPlaying()){
-			audioManager.stopBackgroundMusic();
-			return false;
-		}
-		else{
-			audioManager.playBackgroundMusic("src/Sounds/Run-Amok_chosic.com_.wav");
-			return true;
-		}
 	}
 
 	private void playAudio(String audioFilePath) { //pescar carta

@@ -3,6 +3,8 @@ package View;
 Code created by Josh Braza
 */
 import GameModel.Game;
+import GameModel.Managers.AudioManager;
+
 import static Interfaces.GameConstants.BUTTONLISTENER;
 import java.awt.*;
 import static java.awt.Image.*;
@@ -16,6 +18,8 @@ public class Session extends JPanel {
 	private final TablePanel table;
 
 	private final Game game;
+
+	private final AudioManager audioManager;
 
 	private JButton audioControl;
 	private JButton volumeUp;
@@ -33,6 +37,7 @@ public class Session extends JPanel {
 		setLayout(new BorderLayout());
 
 		game = newGame;
+		audioManager = AudioManager.getInstance();
 
 		setPlayers();
 		table = new TablePanel(firstCard);
@@ -132,7 +137,7 @@ public class Session extends JPanel {
 	class VolumeDownHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			volumeDown.setEnabled(game.volumeDown());
+			volumeDown.setEnabled(audioManager.volumeDown());
 			volumeUp.setEnabled(true);
 		}
 	}
@@ -140,7 +145,7 @@ public class Session extends JPanel {
 	class VolumeUpHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			volumeUp.setEnabled(game.volumeUp());
+			volumeUp.setEnabled(audioManager.volumeUp());
 			volumeDown.setEnabled(true);
 		}
 	}
@@ -148,7 +153,7 @@ public class Session extends JPanel {
 	class AudioControlHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			boolean isBackgroundMusicOn = game.controlBackgroundMusic();
+			boolean isBackgroundMusicOn = audioManager.controlBackgroundMusic();
 
 			if (isBackgroundMusicOn) setAudioButtonIcon(AUDIO_ON_ICON_PATH);
 			else setAudioButtonIcon(AUDIO_OFF_ICON_PATH);

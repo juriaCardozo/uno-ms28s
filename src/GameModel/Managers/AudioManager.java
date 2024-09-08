@@ -6,12 +6,30 @@ import javax.sound.sampled.*;
 
 public class AudioManager {
 
+    private static AudioManager instance;
+
     private Clip backgroundMusicClip;
     private FloatControl volumeControl;
     private boolean isPlaying;
 
-    public AudioManager() {
+    private final String BACKGROUND_MUSIC_PATH = "src/Sounds/Run-Amok_chosic.com_.wav";
+
+    private final Float MAX_VOLUME = 0f;
+    private final Float MIN_VOLUME = -40f;
+
+    private AudioManager() {
         isPlaying = false;
+    }
+
+    public static AudioManager getInstance() {
+        if (instance == null) {
+            synchronized (AudioManager.class) {
+                if (instance == null) {
+                    instance = new AudioManager();
+                }
+            }
+        }
+        return instance;
     }
 
     public void playBackgroundMusic(String filePath) {
@@ -25,6 +43,16 @@ public class AudioManager {
     private void stopCurrentMusic() {
         if (backgroundMusicClip != null && isPlaying) {
             backgroundMusicClip.stop();
+        }
+    }
+
+    public final boolean controlBackgroundMusic() {
+        if (isPlaying()) {
+            stopBackgroundMusic();
+            return false;
+        } else {
+            playBackgroundMusic(BACKGROUND_MUSIC_PATH);
+            return true;
         }
     }
 
@@ -60,6 +88,7 @@ public class AudioManager {
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
             }
             volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            volumeControl.setValue(-20f);
             clip.start();
             isPlaying = true;
         }
@@ -79,11 +108,12 @@ public class AudioManager {
     public boolean volumeUp() {
         if (volumeControl != null) {
             float currentVolume = volumeControl.getValue();
-            float maxVolume = volumeControl.getMaximum();
-            if (currentVolume < maxVolume) {
-                volumeControl.setValue(currentVolume + 1.0f);
-                return true;
+
+            if (currentVolume < MAX_VOLUME) {
+                volumeControl.setValue(currentVolume + 10.0f);
+                return volumeControl.getValue() < MAX_VOLUME;
             }
+            return false;
         }
         return false;
     }
@@ -91,11 +121,12 @@ public class AudioManager {
     public boolean volumeDown() {
         if (volumeControl != null) {
             float currentVolume = volumeControl.getValue();
-            float minVolume = volumeControl.getMinimum();
-            if (currentVolume > minVolume) {
-                volumeControl.setValue(currentVolume - 1.0f);
-                return true;
+
+            if (currentVolume > MIN_VOLUME) {
+                volumeControl.setValue(currentVolume - 10.0f);
+                return volumeControl.getValue() > MIN_VOLUME;
             }
+            return false;
         }
         return false;
     }
