@@ -9,12 +9,10 @@ import javax.swing.SwingUtilities;
 
 public class Main {
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> {
-                    startNewGame();
-                });
+		SwingUtilities.invokeLater(Main::startNewGame);
 	}
 	
-	static public void startNewGame() {
+	public static void startNewGame() {
 		Observer observer = new Observer();
 		MainFrame frame = new MainFrame(observer);
 
