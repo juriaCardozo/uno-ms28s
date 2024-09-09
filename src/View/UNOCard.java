@@ -58,6 +58,45 @@ public abstract class UNOCard extends JPanel implements CardInterface, UNOConsta
 			else paintCardBack(g2);
 		}
 	}
+
+	// Sobrescreve o método toString para imprimir informações úteis sobre a carta
+	@Override
+	public String toString() {
+		String colorName = getColorName(cardColor); // Optional: A method to convert Color to a color name
+		return value +
+				" " + (colorName != null ? colorName : cardColor) +
+				" " + getTypeName(type);
+	}
+
+	// Método opcional para converter Color em um nome (como "Vermelho", "Azul",
+	// etc.)
+	private String getColorName(Color color) {
+		if (Color.RED.equals(color)) {
+		} else if (GameConstants.unoConstants.getRED(GameConstants.selectedPalette).equals(color)) {
+			return "Vermelho";
+		} else if (GameConstants.unoConstants.getBLUE(GameConstants.selectedPalette).equals(color)) {
+			return "Azul";
+		} else if (GameConstants.unoConstants.getGREEN(GameConstants.selectedPalette).equals(color)) {
+			return "Verde";
+		} else if (GameConstants.unoConstants.getYELLOW(GameConstants.selectedPalette).equals(color)) {
+			return "Amarelo";
+		} else if (Color.BLACK.equals(color)) {
+			return "Preto";
+		}
+		return null;
+	}
+
+	// Método opcional para converter o tipo int em um nome descritivo
+	private String getTypeName(int type) {
+		switch (type) {
+			case WILD:
+				return "Coringa";
+			case ACTION:
+				return "Ação";
+			default:
+				return "Normal";
+		}
+	}
 	
 	private void paintCardFront(Graphics2D g) {
 		int cardWidth = CARDSIZE.width;

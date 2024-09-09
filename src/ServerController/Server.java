@@ -122,65 +122,28 @@ public class Server implements GameConstants {
 	}
 
 	private void playClickedCard(UNOCard clickedCard) {
+		System.out.println("Card: " + clickedCard.toString());
 		clickedCard.removeMouseListener(CARDLISTENER);
 		playedCards.add(clickedCard);
 		game.removePlayedCard(clickedCard);
-
-		boolean isActionCardOrVsPC = mode == vsPC || clickedCard.getType() == ACTION;
-
-		if (isActionCardOrVsPC || !checkResults()) {
+		if (clickedCard.getType() == WILD || clickedCard.getType() == ACTION) {
+			// checkResults();
+		} else {
 			game.switchTurn();
-			System.out.println("mudou de turno");
-
-			if (!isActionCardOrVsPC) {
-				confirmNextPlayerTurn(clickedCard);
-			}
 		}
-
 		clickedCard.setShowValue(true);
 		session.updatePanel(clickedCard);
-
-		if (isActionCardOrVsPC) {
-			checkResults();
-		}
+		checkResults();
 	}
 
 	// Check if the game is over
-	private boolean checkResults() {
+	private void checkResults() {
+
 		if (game.isOver()) {
 			canPlay = false;
 			infoPanel.updateText("Fim do Jogo!");
 			gameOverNewSession();
-			return true;
 		}
-		return false;
-	}
-
-	private void confirmNextPlayerTurn(UNOCard clickedCard) {
-		setCardsVisibility(false);
-
-		// Mostrar panel de confirmação
-		String message = "Confirme que o próximo jogador está pronto para jogar.";
-		int option = JOptionPane.showConfirmDialog(null, message, "Confirmação de Turno", JOptionPane.OK_CANCEL_OPTION);
-
-		if (option == JOptionPane.OK_OPTION) {
-			// Exibir as cartas após a confirmação do próximo turno
-			game.switchTurn();
-			session.refreshPanel(); // Atualizar o estado do jogo após a mudança de turno
-		} else {
-			JOptionPane.showMessageDialog(null, "O turno não foi confirmado. Por favor, confirme para continuar.");
-			confirmNextPlayerTurn(clickedCard); // Repetir até que seja confirmado
-		}
-
-	}
-
-	private void setCardsVisibility(boolean visible) {
-		for (Player player : game.getPlayers()) {
-			for (UNOCard card : player.getCards()) {
-				card.setShowValue(visible); // Método que define a visibilidade da carta
-			}
-		}
-		session.refreshPanel(); // Atualiza o painel após alterar a visibilidade
 	}
 
 	// check player's turn
@@ -217,9 +180,6 @@ public class Server implements GameConstants {
 		// Draw2PLUS
 		if (actionCard.getValue().equals(DRAW2PLUS))
 			game.drawPlus(2);
-
-		game.switchTurn();
-
 	}
 
 	private boolean performWild(WildCard functionCard) {

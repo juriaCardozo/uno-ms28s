@@ -105,22 +105,19 @@ public class Game implements GameConstants {
 
 	//give player a card
 	public void drawCard(UNOCard topCard) {
+		System.out.println("drawCard");
 		boolean canPlay = false;
 
 		for (Player p : players) {
 			if (p.isMyTurn()) {
 				UNOCard newCard = getCard();
 				p.obtainCard(newCard);
-	
-				if (GAMEMODE == MANUAL) {
-					canPlay = canPlay(topCard, newCard);
-	
-					if (!canPlay) {
-						switchTurn();
-					}
-				} else if (pc.isMyTurn()) {
-					canPlay = canPlay(topCard, newCard);
-	
+				System.out.println("Card obtained: " + newCard.toString());
+
+				canPlay = canPlay(topCard, newCard);
+				infoPanel.repaint();
+
+				if (pc != null && pc.isMyTurn()) {
 					if (canPlay) {
 						playPC(topCard);
 					} else {
@@ -133,18 +130,58 @@ public class Game implements GameConstants {
 
 		playAudio("src/Sounds/depositphotos_431797418-track-heavily-pushing-releasing-spacebar-keyboard.wav");
 
-		if (!canPlay)
+		if (!canPlay && GAMEMODE != vsPC) {
 			switchTurn();
+		}
 	}
 
 	public void switchTurn() {
+		System.out.println("switchTurn");
 		for (Player p : players) {
 			p.toggleTurn();
 		}
+
+		if (GAMEMODE != vsPC) {
+			setCardsVisibility(false);
+
+			confirmNextPlayerTurn();
+
+			setCardsVisibilityForCurrentPlayer(true);
+		}
+
 		whoseTurn();
 	}
 
-	//Draw cards x times
+	private void confirmNextPlayerTurn() {
+		infoPanel.repaint();
+
+		String message = "Confirme que o próximo jogador está pronto para jogar.";
+		int option = JOptionPane.showConfirmDialog(null, message, "Confirmação de Turno", JOptionPane.OK_CANCEL_OPTION);
+
+		if (option != JOptionPane.OK_OPTION) {
+			JOptionPane.showMessageDialog(null, "O turno não foi confirmado. Por favor, confirme para continuar.");
+			confirmNextPlayerTurn();
+		}
+	}
+
+	private void setCardsVisibility(boolean visible) {
+		for (Player player : this.getPlayers()) {
+			for (UNOCard card : player.getCards()) {
+				card.setShowValue(visible);
+			}
+		}
+	}
+
+	private void setCardsVisibilityForCurrentPlayer(boolean visible) {
+		for (Player player : this.getPlayers()) {
+			if (player.isMyTurn()) {
+				for (UNOCard card : player.getCards()) {
+					card.setShowValue(visible);
+				}
+			}
+		}
+	}
+
 	public void drawPlus(int times) {
 		for (Player p : players) {
 			if (!p.isMyTurn()) {
