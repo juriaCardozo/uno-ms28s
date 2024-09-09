@@ -7,7 +7,7 @@ import CardModel.WildCard;
 import GameModel.Game;
 import GameModel.Player;
 import Interfaces.GameConstants;
-import Interfaces.setGameTheme;
+import Interfaces.SetGameTheme;
 import View.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class Server implements GameConstants {
 	// return if it's 2-Player's mode or PC-mode
 	private int requestMode() {
 
-		setGameTheme.gameTheme();
+		SetGameTheme.gameTheme();
 
 		Object[] options = { "vs PC", "Jogador vs Jogador", "Cancelar" };
 
