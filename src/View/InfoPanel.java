@@ -121,10 +121,6 @@ public class InfoPanel extends JPanel {
 		text = "Você : "+you + "  PC : " + pc;
 		xPos = panelCenter - fm.stringWidth(text) / 2;
 		g.drawString(text, xPos, 140);
-		
-		text = String.valueOf(rest);
-		xPos = panelCenter - fm.stringWidth(text) / 2;
-		//g.drawString(text, xPos, 190);
 	}
 
 	public void updateText(String newText) {
