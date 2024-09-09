@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class setGameTheme {
+public class SetGameTheme {
     public static void gameTheme() {
     Color corTexto = Color.white;
     Color corFundoModais = new Color(30, 36, 40);
