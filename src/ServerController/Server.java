@@ -5,12 +5,10 @@ Code created by Josh Braza
 */
 import CardModel.WildCard;
 import GameModel.Game;
+import GameModel.GameModeSelector;
 import GameModel.Player;
 import Interfaces.GameConstants;
-import Interfaces.SetGameTheme;
 import View.*;
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 import javax.swing.*;
@@ -22,11 +20,14 @@ public class Server implements GameConstants {
 	public boolean canPlay;
 	private final int mode;
 	private Observer observer;
+	private final GameModeSelector gameModeSelector;  
+	private final CardActionHandler cardActionHandler;
 
 	public Server() {
-
-		mode = requestMode();
+		gameModeSelector = new GameModeSelector(); 
+		mode = gameModeSelector.requestMode();
 		startGame();
+		cardActionHandler = new CardActionHandler(game);
 	}
 
 	public void startGame() {
@@ -47,24 +48,6 @@ public class Server implements GameConstants {
 
 		game.whoseTurn();
 		canPlay = true;
-	}
-
-	// return if it's 2-Player's mode or PC-mode
-	private int requestMode() {
-
-		SetGameTheme.gameTheme();
-
-		Object[] options = { "vs PC", "Jogador vs Jogador", "Cancelar" };
-
-		int n = JOptionPane.showOptionDialog(null,
-				"Escolha um modo de jogo para jogar!", "Modo de Jogo",
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
-				null, options, options[0]);
-
-		if (n == 2 || n < 0)
-			System.exit(1);
-
-		return GAMEMODES[n];
 	}
 
 	// coustom settings for the first card
@@ -95,12 +78,12 @@ public class Server implements GameConstants {
 		} else {
 
 			// Card validation
-			if (isValidMove(clickedCard)) {
+			if (cardActionHandler.isValidMove(clickedCard, peekTopCard())) {
 				boolean cardConfirmed = true;
 				// function cards ??
 				switch (clickedCard.getType()) {
-					case ACTION -> performAction(clickedCard);
-					case WILD -> cardConfirmed = performWild((WildCard) clickedCard);
+					case ACTION -> cardActionHandler.performAction(clickedCard);
+					case WILD -> cardConfirmed = cardActionHandler.performWild((WildCard) clickedCard, mode);
 					default -> {
 					}
 				}
@@ -154,65 +137,6 @@ public class Server implements GameConstants {
 				return true;
 		}
 		return false;
-	}
-
-	// check if it is a valid card
-	public boolean isValidMove(UNOCard playedCard) {
-		UNOCard topCard = peekTopCard();
-
-		if (playedCard.getColor().equals(topCard.getColor())
-				|| playedCard.getValue().equals(topCard.getValue())) {
-			return true;
-		}
-
-		else if (playedCard.getType() == WILD) {
-			return true;
-		} else if (topCard.getType() == WILD) {
-			Color color = ((WildCard) topCard).getWildColor();
-			if (color.equals(playedCard.getColor()))
-				return true;
-		}
-		return false;
-	}
-
-	// ActionCards
-	private void performAction(UNOCard actionCard) {
-		// Draw2PLUS
-		if (actionCard.getValue().equals(DRAW2PLUS))
-			game.drawPlus(2);
-	}
-
-	private boolean performWild(WildCard functionCard) {
-
-		if (mode == 1 && game.isPCsTurn()) {
-			int random = new Random().nextInt() % 4;
-			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
-		} else {
-
-			ArrayList<String> colors = new ArrayList<>();
-			colors.add("VERMELHO");
-			colors.add("AZUL");
-			colors.add("VERDE");
-			colors.add("AMARELO");
-
-			String chosenColor = (String) JOptionPane.showInputDialog(null,
-					"Escolha uma cor", "Carta Escolhe Cor",
-					JOptionPane.DEFAULT_OPTION, null, colors.toArray(), null);
-
-			if (chosenColor == null) {
-				return false;
-			}
-
-			functionCard.useWildColor(UNO_COLORS[colors.indexOf(chosenColor)]);
-
-		}
-
-		if (functionCard.getValue().equals(W_DRAW4PLUS)) {
-			game.drawPlus(4);
-			game.switchTurn();
-		}
-
-		return true;
 	}
 
 	public void requestCard() {
