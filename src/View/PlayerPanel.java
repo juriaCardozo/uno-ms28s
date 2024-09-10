@@ -12,10 +12,7 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Box;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public final class PlayerPanel extends JPanel implements GameConstants {
 
@@ -93,26 +90,38 @@ public final class PlayerPanel extends JPanel implements GameConstants {
 	}
 
 	private void setControlPanel(Player newPlayer) {
+		JLabel playerIcon = new JLabel(new PlayerIcon(24, 32));
+		Dimension buttonSize = new Dimension(150, 35);
+
 		draw = new RoundedJButton("Comprar", new Color(79, 129, 189), 20);
 		sayUNO = new RoundedJButton("Dizer UNO!", new Color(149, 55, 53), 20);
 		nameLbl = new JLabel(name);
 
-		// style
 		draw.setFont(new Font("Arial", Font.BOLD, 20));
+		draw.setPreferredSize(buttonSize);
 		draw.setFocusable(false);
 
 		sayUNO.setFont(new Font("Arial", Font.BOLD, 20));
+		sayUNO.setPreferredSize(buttonSize);
 		sayUNO.setFocusable(false);
 
 		nameLbl.setForeground(Color.WHITE);
 		nameLbl.setFont(new Font("Arial", Font.BOLD, 15));
 
+		JPanel namePanel = new JPanel();
+		namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
+		namePanel.setOpaque(false);
+		namePanel.setAlignmentX(LEFT_ALIGNMENT);
+		namePanel.add(playerIcon);
+		namePanel.add(Box.createHorizontalStrut(5));
+		namePanel.add(nameLbl);
+
 		controlPanel = Box.createVerticalBox();
-		controlPanel.add(nameLbl);
-		controlPanel.add(Box.createVerticalStrut(5));
+		controlPanel.add(namePanel);
 		controlPanel.add(draw);
-		controlPanel.add(Box.createVerticalStrut(15));
+		controlPanel.add(Box.createVerticalStrut(10));
 		controlPanel.add(sayUNO);
+		controlPanel.add(Box.createVerticalStrut(15));
 
 		if (newPlayer.isPC()) {
 			draw.setVisible(false);
