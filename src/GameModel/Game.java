@@ -36,8 +36,13 @@ public class Game implements GameConstants {
 		name = name == null || name.isEmpty() ? "Jogador 1" : name;
 		name2 = name2 == null || name2.isEmpty() ? "Jogador 2" : name2;
 
-		if(GAMEMODE==vsPC)
+		if (GAMEMODE == vsPC) {
 			pc = new PC();
+			System.out.println("Game mode é vs PC.");
+		} else {
+			System.out.println("Game mode é Player vs Player.");
+		}
+
 
 		Player player1 = (GAMEMODE==vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);
@@ -105,14 +110,14 @@ public class Game implements GameConstants {
 
 	//give player a card
 	public void drawCard(UNOCard topCard) {
-		System.out.println("drawCard");
+		System.out.println("Comprando carta para o jogador atual.");
 		boolean canPlay = false;
 
 		for (Player p : players) {
 			if (p.isMyTurn()) {
 				UNOCard newCard = getCard();
 				p.obtainCard(newCard);
-				System.out.println("Card obtained: " + newCard.toString());
+				System.out.println("Carta comprada: " + newCard.toString());
 
 				canPlay = canPlay(topCard, newCard);
 				infoPanel.repaint();
@@ -136,7 +141,7 @@ public class Game implements GameConstants {
 	}
 
 	public void switchTurn() {
-		System.out.println("switchTurn");
+		System.out.println("Trocando o turno");
 		for (Player p : players) {
 			p.toggleTurn();
 		}
@@ -183,6 +188,7 @@ public class Game implements GameConstants {
 	}
 
 	public void drawPlus(int times) {
+		System.out.println("Comprando " + times + " cartas como penalidade.");
 		for (Player p : players) {
 			if (!p.isMyTurn()) {
 				for (int i = 1; i <= times; i++)

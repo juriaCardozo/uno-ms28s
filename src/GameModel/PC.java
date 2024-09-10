@@ -40,6 +40,7 @@ public class PC extends Player implements GameConstants {
 	private boolean playWildCard(){
 		for(UNOCard card : getAllCards()){
 			if(card.getType() == WILD){
+				System.out.println("PC jogou uma carta coringa: " + card);
 				dispatchCardEvent(card);
 				return true;
 			}
