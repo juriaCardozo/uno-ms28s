@@ -2,12 +2,16 @@ package GameModel;
 /*
 Code created by Josh Braza
 */
+
+import View.PlayerIcon;
 import View.UNOCard;
+
 import java.util.LinkedList;
 
 public class Player {
 	
 	private String name = null;
+	private PlayerIcon playerIcon = null;
 	private boolean isMyTurn = false;
 	private boolean saidUNO = false;
 	private final LinkedList<UNOCard> myCards;
@@ -31,6 +35,14 @@ public class Player {
 	
 	public String getName(){
 		return this.name;
+	}
+
+	public final void setPlayerIcon(PlayerIcon playerIcon){
+		this.playerIcon = playerIcon;
+	}
+
+	public PlayerIcon getPlayerIcon(){
+		return this.playerIcon;
 	}
 
 	public void setPC(boolean isPC){

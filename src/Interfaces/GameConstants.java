@@ -5,6 +5,8 @@ Code created by Josh Braza
 import ServerController.MyButtonListener;
 import ServerController.MyCardListener;
 import View.InfoPanel;
+import View.PlayerIcon;
+
 import java.awt.Color;
 
 
@@ -40,4 +42,10 @@ public interface GameConstants extends UNOConstants_Original {
 	MyButtonListener BUTTONLISTENER = new MyButtonListener();
 
 	InfoPanel infoPanel = new InfoPanel();
+
+	PlayerIcon[] playerIconOptionList = {
+			new PlayerIcon(36, 50, UNO_CARDBACK),
+			new PlayerIcon(36, 50, W_COLORPICKER),
+			new PlayerIcon(36, 50, W_DRAW4PLUS),
+	};
 }

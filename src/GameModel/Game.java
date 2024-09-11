@@ -7,8 +7,14 @@ import CardModel.*;
 import GameModel.Managers.AudioManager;
 import GameModel.Managers.CardManager;
 import Interfaces.GameConstants;
+import View.PlayerIcon;
 import View.UNOCard;
-import javax.swing.JOptionPane;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 
 //import static Interfaces.UNOConstants.WILD;
 
@@ -29,12 +35,22 @@ public class Game implements GameConstants {
 		audioManager = AudioManager.getInstance();
 
 		//Create players
-		String name = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 1:",
+		String nomeJogadorUm = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 1:",
 				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE) : "PC";
-		String name2 = JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 2:",
+		nomeJogadorUm = nomeJogadorUm == null || nomeJogadorUm.isEmpty() ? "Jogador 1" : nomeJogadorUm;
+
+		PlayerIcon playerIconUm;
+		if (GAMEMODE == vsPC) {
+			playerIconUm = playerIconOptionList[new Random().nextInt(playerIconOptionList.length)];
+		} else {
+			playerIconUm = showIconSelectionDialog(nomeJogadorUm);
+		}
+
+		String nomeJogadorDois = JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 2:",
 				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE);
-		name = name == null || name.isEmpty() ? "Jogador 1" : name;
-		name2 = name2 == null || name2.isEmpty() ? "Jogador 2" : name2;
+		nomeJogadorDois = nomeJogadorDois == null || nomeJogadorDois.isEmpty() ? "Jogador 2" : nomeJogadorDois;
+
+		PlayerIcon playerIconDois = showIconSelectionDialog(nomeJogadorDois);
 
 		if (GAMEMODE == vsPC) {
 			pc = new PC();
@@ -43,9 +59,11 @@ public class Game implements GameConstants {
 			System.out.println("Game mode é Player vs Player.");
 		}
 
+		Player player1 = (GAMEMODE==vsPC) ? pc : new Player(nomeJogadorUm);
+		Player player2 = new Player(nomeJogadorDois);
 
-		Player player1 = (GAMEMODE==vsPC) ? pc : new Player(name);
-		Player player2 = new Player(name2);
+		player1.setPlayerIcon(playerIconUm);
+		player2.setPlayerIcon(playerIconDois);
 
 		audioManager.controlBackgroundMusic();
 
@@ -56,6 +74,37 @@ public class Game implements GameConstants {
 		cardManager = new CardManager(players);
 
 		isOver = false;
+	}
+
+	private PlayerIcon showIconSelectionDialog(String playerName) {
+		JPanel iconPanel = new JPanel(new GridLayout(1, playerIconOptionList.length, 10, 10));
+		final PlayerIcon[] selected = {playerIconOptionList[new Random().nextInt(playerIconOptionList.length)]};
+
+		for (PlayerIcon icon : playerIconOptionList) {
+			JButton button = new JButton(icon);
+			button.setPreferredSize(new Dimension(50, 30));
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					selected[0] = icon;
+					JOptionPane.getRootFrame().dispose();
+				}
+			});
+			iconPanel.add(button);
+		}
+
+		JOptionPane.showOptionDialog(
+				null,
+				iconPanel,
+				"Escolha um ícone para " + playerName,
+				JOptionPane.DEFAULT_OPTION,
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				new Object[]{},
+				null
+		);
+
+		return selected[0]; // Retorna o ícone selecionado ou valor aleatório se o dialog for fechado
 	}
 
 	private void playAudio(String audioFilePath) { //pescar carta

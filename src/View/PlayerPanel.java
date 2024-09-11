@@ -6,13 +6,11 @@ Code created by Josh Braza
 import Components.RoundedJButton;
 import GameModel.Player;
 import Interfaces.GameConstants;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Point;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
 public final class PlayerPanel extends JPanel implements GameConstants {
 
@@ -90,7 +88,9 @@ public final class PlayerPanel extends JPanel implements GameConstants {
 	}
 
 	private void setControlPanel(Player newPlayer) {
-		JLabel playerIcon = new JLabel(new PlayerIcon(24, 32));
+		PlayerIcon playerIcon = newPlayer.getPlayerIcon();
+		playerIcon.setIconSize(24, 32);
+		JLabel playerIconLabel = new JLabel(playerIcon);
 		Dimension buttonSize = new Dimension(150, 35);
 
 		draw = new RoundedJButton("Comprar", new Color(79, 129, 189), 20);
@@ -112,7 +112,7 @@ public final class PlayerPanel extends JPanel implements GameConstants {
 		namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
 		namePanel.setOpaque(false);
 		namePanel.setAlignmentX(LEFT_ALIGNMENT);
-		namePanel.add(playerIcon);
+		namePanel.add(playerIconLabel);
 		namePanel.add(Box.createHorizontalStrut(5));
 		namePanel.add(nameLbl);
 

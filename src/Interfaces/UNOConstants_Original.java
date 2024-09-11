@@ -19,4 +19,5 @@ public interface UNOConstants_Original {
 	//Wild card functions
 	String W_COLORPICKER = "\uD83C\uDF10";
 	String W_DRAW4PLUS = "+4";
+	String UNO_CARDBACK = "UNO";
 }
