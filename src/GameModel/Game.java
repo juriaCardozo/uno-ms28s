@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-//import static Interfaces.UNOConstants.WILD;
 
 public class Game implements GameConstants {
 
@@ -35,9 +34,19 @@ public class Game implements GameConstants {
 		audioManager = AudioManager.getInstance();
 
 		//Create players
-		String nomeJogadorUm = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 1:",
-				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE) : "PC";
-		nomeJogadorUm = nomeJogadorUm == null || nomeJogadorUm.isEmpty() ? "Jogador 1" : nomeJogadorUm;
+		String nomeJogadorUm;
+        String nomeJogadorDois;
+
+		if (GAMEMODE == vsPC) {
+			nomeJogadorUm = solicitarNomeJogador("Escolha um nome para o Jogador 1:");
+			nomeJogadorDois = "PC";
+			pc = new PC(); // Criar o PC
+			System.out.println("Game mode é vs PC.");
+		} else {
+			nomeJogadorUm = solicitarNomeJogador("Escolha um nome para o Jogador 1:");
+			nomeJogadorDois = solicitarNomeJogador("Escolha um nome para o Jogador 2:");
+			System.out.println("Game mode é Player vs Player.");
+		}
 
 		PlayerIcon playerIconUm;
 		if (GAMEMODE == vsPC) {
@@ -45,10 +54,6 @@ public class Game implements GameConstants {
 		} else {
 			playerIconUm = showIconSelectionDialog(nomeJogadorUm);
 		}
-
-		String nomeJogadorDois = JOptionPane.showInputDialog(null, "Escolha um nome para o Jogador 2:",
-				"Nome do Jogador", JOptionPane.PLAIN_MESSAGE);
-		nomeJogadorDois = nomeJogadorDois == null || nomeJogadorDois.isEmpty() ? "Jogador 2" : nomeJogadorDois;
 
 		PlayerIcon playerIconDois = showIconSelectionDialog(nomeJogadorDois);
 
@@ -74,6 +79,17 @@ public class Game implements GameConstants {
 		cardManager = new CardManager(players);
 
 		isOver = false;
+	}
+
+	private String solicitarNomeJogador(String mensagem) {
+		String nomeJogador;
+		do {
+			nomeJogador = JOptionPane.showInputDialog(null, mensagem, "Nome do Jogador", JOptionPane.PLAIN_MESSAGE);
+			if (nomeJogador == null || nomeJogador.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "O nome do jogador não pode ser vazio. Por favor, insira um nome válido.");
+			}
+		} while (nomeJogador == null || nomeJogador.isEmpty());
+		return nomeJogador;
 	}
 
 	private PlayerIcon showIconSelectionDialog(String playerName) {
